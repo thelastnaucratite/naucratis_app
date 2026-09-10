@@ -1,0 +1,10 @@
+{
+  "name": "Naucratis — Comunidade Politeísta",
+  "short_name": "Naucratis",
+  "description": "App unificado da Comunidade Politeísta Naucratita: início, estatuto, calendário sagrado e demais seções do site em um só lugar.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f4f3f3",
+  "theme_color": "#1f0e0c",
+  "lang": "pt-BR"
+}
