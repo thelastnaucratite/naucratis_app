@@ -2936,8 +2936,11 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
         });
       }
 
-      const ordenadas = [...filtradas].sort((a, b) => (b.data || '').localeCompare(a.data || ''));
-
+const ordenadas = [...filtradas].sort((a, b) => {
+        const numA = parseInt((a.id.match(/(\d+)$/) || [0, 0])[1], 10);
+        const numB = parseInt((b.id.match(/(\d+)$/) || [0, 0])[1], 10);
+        return numB - numA;
+      });
       if (ordenadas.length === 0) {
         listEl.innerHTML = `<div class="circ-empty">Nenhuma circular encontrada para "${searchInput.value}".</div>`;
         return;
