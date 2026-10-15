@@ -108,6 +108,47 @@
     }
     .menu-toggle:hover { background: var(--cor-clara); border-color: var(--cor-clara); }
     .menu-toggle svg { width: 26px; height: 26px; fill: currentColor; }
+        /* ===== BOTÃO HOME FIXO ===== */
+    .home-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 1000;
+      background: var(--sidebar-bg);
+      border: 1px solid var(--sidebar-border);
+      border-radius: 8px;
+      color: #fff;
+      padding: 0.5rem 0.6rem;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      text-decoration: none;
+    }
+    .home-toggle:hover {
+      background: var(--cor-clara);
+      border-color: var(--cor-clara);
+      transform: translateY(-2px);
+    }
+    .home-toggle svg {
+      width: 24px;
+      height: 24px;
+      fill: currentColor;
+      display: block;
+    }
+    @media (max-width: 700px) {
+      .home-toggle {
+        top: 0.8rem;
+        right: 0.8rem;
+        width: 40px;
+        height: 40px;
+      }
+      .home-toggle svg { width: 22px; height: 22px; }
+    }
 
     .overlay {
       position: fixed; inset: 0; background: rgba(0,0,0,0.5);
@@ -2529,6 +2570,11 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
     }
     menuToggle.addEventListener('click', (e) => { e.stopPropagation(); toggleMenu(); });
     overlay.addEventListener('click', () => toggleMenu(false));
+        document.getElementById('homeToggle').addEventListener('click', (e) => {
+      e.preventDefault();
+      switchView('home');
+      if (window.innerWidth <= 700) toggleMenu(false);
+    });
 
     document.querySelectorAll('.tema-botao').forEach(btn => {
       btn.addEventListener('click', () => setTema(btn.dataset.tema));
