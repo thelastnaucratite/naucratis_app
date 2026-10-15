@@ -2580,7 +2580,7 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
       }
       const m = MONTHS[info.monthIndex];
       const di = dayInfo(info.monthIndex, info.dayNum);
-      greeting.textContent = `Saudações · ${info.dayNum}º dia de ${info.monthName}`;
+      greeting.textContent = `· ${info.dayNum}º dia de ${info.monthName}`;
       todayDate.textContent = `${fmtGregFull(info.dt)} · ${WD[info.dt.getDay()]}`;
 
       const chaveDev = (info.dayNum === m.days) ? 'deipnon' : (DEVOCIONARIO[info.dayNum] ? info.dayNum : null);
