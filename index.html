@@ -1000,7 +1000,7 @@
     <!-- ===================== VIEW: HOME ===================== -->
     <section class="view active" id="view-home">
       <div class="home-hero">
-        <div class="greeting">Χαῖρε, Naucratita</div>
+        <div class="greeting">Saudações, Naucratita!</div>
         <h2 id="homeGreeting">Bem-vindo à Náucratis</h2>
         <div class="today-date" id="homeTodayDate">—</div>
       </div>
@@ -1018,17 +1018,17 @@
         <div class="shortcut" data-goto="calendario">
           <span class="sh-ico">📅</span>
           <div class="sh-title">Calendário</div>
-          <div class="sh-desc">Festivais, luas e ritos</div>
+          <div class="sh-desc">Festivais e Ritos Sagrados</div>
         </div>
         <div class="shortcut" data-goto="devocional">
           <span class="sh-ico">🔥</span>
           <div class="sh-title">Devocional</div>
-          <div class="sh-desc">O culto de hoje</div>
+          <div class="sh-desc">Dia Fixo</div>
         </div>
         <div class="shortcut" data-goto="estatuto">
           <span class="sh-ico">📜</span>
           <div class="sh-title">Estatuto</div>
-          <div class="sh-desc">Fundamentos e normas</div>
+          <div class="sh-desc">Os Fundamentos da Comunidade</div>
         </div>
         <div class="shortcut" data-goto="circulares">
           <span class="sh-ico">📨</span>
@@ -1047,7 +1047,7 @@
 
     <!-- ===================== VIEW: DEVOCIONAL ===================== -->
     <section class="view" id="view-devocional">
-      <h2 class="page-title">Devocional Diário</h2>
+      <h2 class="page-title">Devocional Dias Fixos</h2>
 
       <div class="dev-view-hero">
         <div class="dev-day" id="devDayNum">—</div>
@@ -2580,7 +2580,7 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
       }
       const m = MONTHS[info.monthIndex];
       const di = dayInfo(info.monthIndex, info.dayNum);
-      greeting.textContent = `Χαῖρε · ${info.dayNum}º dia de ${info.monthName}`;
+      greeting.textContent = `Saudações · ${info.dayNum}º dia de ${info.monthName}`;
       todayDate.textContent = `${fmtGregFull(info.dt)} · ${WD[info.dt.getDay()]}`;
 
       const chaveDev = (info.dayNum === m.days) ? 'deipnon' : (DEVOCIONARIO[info.dayNum] ? info.dayNum : null);
