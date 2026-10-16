@@ -1284,7 +1284,7 @@
       <div class="est-chapter-content">
         <div class="content-inner">
           <p>O Período de Purificação em nossa comunidade cobre os últimos 11 ou 12 dias do calendário lunar e tem como principal objetivo nos preparar física e espiritualmente para o grande rito do Deipnon. A partir do primeiro dia da purificação, limpamos nossas casas, nossos altares e nossos objetos de culto. É um momento de introspecção, no qual refletimos sobre nossos sentimentos, receios, vícios e excessos que nos afastam da luz dos imortais.</p>
-          <p>Durante esse período, celebramos os seguintes dias sagrados: <strong>Zeus Apotropaico</strong>, no 19º dia do mês, e o rito a <strong>Hades e Perséfone</strong>, no 25º dia. Aconselham-se jejuns e outras formas de privação de coisas ou atos que não sejam virtuosos ou que alimentem vícios. Lembre-se: os últimos dias do mês são um momento propício para encerrar ciclos, repensar escolhas e planejar as semanas seguintes.</p>
+          <p>Durante esse período, celebramos os seguintes dias sagrados: <strong>Zeus Apotropaico</strong>, no 19º dia do mês, e o rito a <strong>Hades Eubouleus e Perséfone Biodoti</strong>, no 25º dia. Aconselham-se jejuns e outras formas de privação de coisas ou atos que não sejam virtuosos ou que alimentem vícios. Lembre-se: os últimos dias do mês são um momento propício para encerrar ciclos, repensar escolhas e planejar as semanas seguintes.</p>
         </div>
       </div>
     </section>
@@ -2591,6 +2591,19 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
         }
       }
     };
+        /* ==================================================================
+       6-bis) DIAS COM EPÍTETOS FIXOS
+       Dias em que os epítetos das divindades já estão fixados no próprio
+       rito (Zeus Ktesios, Apolo Noumenios, Héstia Polyolbos, Zeus Xênios,
+       Afrodite Pandemos, Zeus Apotropaicos, Hades Euboleus, Perséfone
+       Biodoti, Hécate Borborophorba, etc.). Nestes dias a seção
+       "Epítetos do Mês" NÃO deve aparecer, pois o epíteto não varia.
+       ================================================================== */
+    const DIAS_EPITETOS_FIXOS = [1, 9, 12, 13, 19, 25, 'deipnon'];
+
+    /* ==================================================================
+       7) HELPERS
+       ================================================================== */
 
     /* ==================================================================
        7) HELPERS
@@ -2846,7 +2859,8 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
       devTitle.textContent = titulo;
       devMsg.innerHTML = `<p>${resumoMsg}</p>`;
 
-      if (chaveDev && DEVOCIONARIO[chaveDev].divindades.length > 0) {
+           const temEpitetosFixosHome = chaveDev && DIAS_EPITETOS_FIXOS.includes(chaveDev);
+      if (chaveDev && DEVOCIONARIO[chaveDev].divindades.length > 0 && !temEpitetosFixosHome) {
         const ep = epitetosDoMes(chaveDev, DEVOCIONARIO[chaveDev].divindades, info.dt);
         if (Object.keys(ep).length > 0) {
           const linhas = Object.entries(ep).map(([d, e]) => `<p><strong>${d}:</strong> <span class="highlight" style="background:var(--highlight-bg);padding:0.1rem 0.35rem;border-radius:4px;font-weight:600;color:var(--highlight-text);">${formatarEpiteto(e)}</span></p>`).join('');
@@ -2855,7 +2869,7 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
             <div style="font-family:var(--font-sans);font-size:1rem;line-height:1.6;">${linhas}</div>
           </div>`;
         } else epSlot.innerHTML = '';
-      } else epSlot.innerHTML = '';
+      } else epSlot.innerHTML = '';;
 
       const allFests = [];
       MONTHS.forEach((mm, mi) => {
@@ -2968,7 +2982,8 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
 
       html += `<div class="dev-section"><h3>Foco do Dia</h3><div class="dev-text"><p>${dev.foco}</p></div></div>`;
 
-      if (Object.keys(epitetos).length > 0) {
+               const temEpitetosFixos = DIAS_EPITETOS_FIXOS.includes(chaveDev);
+      if (!temEpitetosFixos && Object.keys(epitetos).length > 0) {
         html += `<div class="dev-section"><h3>Epítetos do Mês</h3><div class="dev-text">
           <p style="font-style:italic;color:var(--text-muted);font-size:0.85rem;">Para cultivar a kharis com os Deuses, sugerimos um epíteto diferente a cada mês. Toda a comunidade recebe o mesmo, e assim honramos juntos o mesmo aspecto divino. Hoje, o epíteto sugerido é:</p>
           ${Object.entries(epitetos).map(([div, ep]) => `<p><strong>${div}:</strong> <span class="highlight">${formatarEpiteto(ep)}</span></p>`).join('')}
@@ -2978,7 +2993,7 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
       // ===== Sugestões de Oferendas — abaixo dos Epítetos do Mês =====
       if (dev.libacao || dev.oferenda) {
         html += `<div class="dev-section"><h3>Sugestões de Oferendas</h3><div class="dev-text">
-          <p><strong>Librações:</strong> ${dev.libacao || '—'}</p>
+          <p><strong>Libações:</strong> ${dev.libacao || '—'}</p>
           <p><strong>Variadas:</strong> ${dev.oferenda || '—'}</p>
         </div></div>`;
       }
@@ -3136,8 +3151,9 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
       if (info.fest) html += `<div class="m-section"><div class="m-label">Festival</div><div class="m-fest">${info.fest}</div></div>`;
       if (info.fixed) html += `<div class="m-section"><div class="m-label">Dedicação fixa</div><div class="m-body">${info.fixed}</div></div>`;
 
-      const chaveDev = (dayNum === m.days) ? 'deipnon' : (DEVOCIONARIO[dayNum] ? dayNum : null);
-      if (chaveDev && DEVOCIONARIO[chaveDev].divindades.length > 0) {
+           const chaveDev = (dayNum === m.days) ? 'deipnon' : (DEVOCIONARIO[dayNum] ? dayNum : null);
+      const temEpitetosFixosModal = chaveDev && DIAS_EPITETOS_FIXOS.includes(chaveDev);
+      if (chaveDev && DEVOCIONARIO[chaveDev].divindades.length > 0 && !temEpitetosFixosModal) {
         const dt = addDays(m.start[0], m.start[1], m.start[2], dayNum - 1);
         const ep = epitetosDoMes(chaveDev, DEVOCIONARIO[chaveDev].divindades, dt);
         if (Object.keys(ep).length > 0) {
