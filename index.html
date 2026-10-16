@@ -1004,7 +1004,52 @@
       .circ-viewer-header { flex-direction: column; align-items: stretch; }
       .circ-viewer-title { order: -1; }
     }
-
+        /* ===== GLOSSÁRIO ===== */
+    .gloss-list {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 0.9rem; margin-top: 0.5rem;
+    }
+    .gloss-item {
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-left: 3px solid var(--cor);
+      border-radius: var(--radius); padding: 0.9rem 1.1rem;
+      box-shadow: var(--shadow); transition: var(--transition);
+    }
+    .gloss-item:hover {
+      transform: translateY(-2px); border-color: var(--cor);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.1);
+    }
+    .gloss-epiteto {
+      font-family: var(--font-serif); font-size: 1rem;
+      color: var(--title-color); margin-bottom: 0.25rem;
+      letter-spacing: 0.03em;
+    }
+    .gloss-traducao {
+      font-family: var(--font-sans); font-size: 0.9rem;
+      color: var(--text-muted); font-style: italic;
+      margin-bottom: 0.55rem;
+    }
+    .gloss-deuses {
+      display: flex; flex-wrap: wrap; gap: 0.3rem;
+      border-top: 1px dashed var(--card-border);
+      padding-top: 0.55rem;
+    }
+    .gloss-deus-tag {
+      font-family: var(--font-serif); font-size: 0.58rem;
+      background: var(--cor-suave); color: var(--cor-escura);
+      padding: 0.15rem 0.55rem; border-radius: 30px;
+      letter-spacing: 0.5px; text-transform: uppercase;
+    }
+    .gloss-item mark {
+      background: var(--highlight-bg); color: var(--highlight-text);
+      border-radius: 3px; padding: 0 0.2rem; font-weight: 600;
+    }
+    .gloss-empty {
+      font-family: var(--font-sans); font-size: 1rem;
+      color: var(--text-muted); text-align: center;
+      padding: 2.5rem 0; font-style: italic;
+      grid-column: 1 / -1;
+    }
     /* ===== FOOTER ===== */
     .app-footer {
       margin-top: 2rem; padding: 1.2rem 2rem;
@@ -1055,6 +1100,15 @@
     <div id="chaptersWrap" style="display:none;">
       <div class="sidebar-label">Capítulos</div>
       <ul class="nav-chapters" id="chapterNav"></ul>
+      <div class="sidebar-divider"></div>
+    </div>
+    
+     <div id="devocionalWrap" style="display:none;">
+      <div class="sidebar-label">Devocional</div>
+      <ul class="nav-chapters" id="devocionalNav">
+        <li><a data-dev="dias-fixos">Dias Fixos</a></li>
+        <li><a data-dev="glossario">Glossário de Epítetos</a></li>
+      </ul>
       <div class="sidebar-divider"></div>
     </div>
 
@@ -1136,6 +1190,23 @@
         <button class="dev-day-btn" id="devTodayBtn">Hoje</button>
         <button class="dev-day-btn" id="devNextDay">Próximo dia →</button>
       </div>
+    </section>
+        <!-- ===================== VIEW: GLOSSÁRIO ===================== -->
+    <section class="view" id="view-glossario">
+      <h2 class="page-title">Glossário de Epítetos</h2>
+
+      <div class="circ-intro">
+        <p>Todos os epítetos dos Deuses presentes neste aplicativo, com suas respectivas traduções, em ordem alfabética. Busque por epíteto, tradução ou nome da divindade.</p>
+      </div>
+
+      <div class="est-search-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="glossSearchInput" placeholder="Buscar epíteto, tradução ou divindade…" aria-label="Buscar no glossário">
+        <button class="clear-btn" id="glossClearBtn" aria-label="Limpar busca">✕</button>
+      </div>
+      <div class="est-search-stats" id="glossSearchStats"></div>
+
+      <div id="glossList" class="gloss-list"></div>
     </section>
 
     <!-- ===================== VIEW: CALENDÁRIO ===================== -->
@@ -2582,8 +2653,10 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
     const overlay = document.getElementById('overlay');
     const menuToggle = document.getElementById('menuToggle');
     const navMain = document.getElementById('navMain');
-    const chaptersWrap = document.getElementById('chaptersWrap');
+        const chaptersWrap = document.getElementById('chaptersWrap');
     const chapterNav = document.getElementById('chapterNav');
+    const devocionalWrap = document.getElementById('devocionalWrap');
+    const devocionalNav = document.getElementById('devocionalNav');
 
     let currentView = 'home';
     let currentDayOffset = 0;
@@ -2626,12 +2699,34 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
       document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
       document.getElementById('view-' + view).classList.add('active');
       navMain.querySelectorAll('a').forEach(a => a.classList.toggle('active', a.dataset.view === view));
-      chaptersWrap.style.display = (view === 'estatuto') ? 'block' : 'none';
+            chaptersWrap.style.display = (view === 'estatuto') ? 'block' : 'none';
+      devocionalWrap.style.display = (view === 'devocional' || view === 'glossario') ? 'block' : 'none';
+          devocionalNav.querySelectorAll('a[data-dev]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const destino = link.dataset.dev;
+        if (destino === 'dias-fixos') switchView('devocional');
+        else if (destino === 'glossario') switchView('glossario');
+        if (window.innerWidth <= 700) toggleMenu(false);
+      });
+    });
+
+      // Destaca o item ativo na sub-navegação do Devocional
+      if (devocionalNav) {
+        devocionalNav.querySelectorAll('a').forEach(a => {
+          const isActive =
+            (view === 'devocional' && a.dataset.dev === 'dias-fixos') ||
+            (view === 'glossario' && a.dataset.dev === 'glossario');
+          a.classList.toggle('active', isActive);
+        });
+      }
       window.scrollTo({ top: 0, behavior: 'smooth' });
       if (view === 'devocional') { currentDayOffset = 0; renderDevocional(); }
       if (view === 'calendario') { renderCalendario(); }
       if (view === 'home') { renderHome(); }
       if (view === 'circulares') { renderCirculares(); }
+            if (view === 'circulares') { renderCirculares(); }
+      if (view === 'glossario') { renderGlossario(); }
     }
     document.querySelectorAll('.shortcut[data-goto]').forEach(sc => {
       sc.addEventListener('click', () => switchView(sc.dataset.goto));
@@ -3101,6 +3196,100 @@ const ordenadas = [...filtradas].sort((a, b) => {
       document.getElementById('circClearBtn').classList.remove('visible');
       renderCirculares();
     });
+        /* ==================================================================
+       13-bis) GLOSSÁRIO DE EPÍTETOS
+       ================================================================== */
+    let GLOSSARIO_CACHE = null;
+
+    function buildGlossario() {
+      if (GLOSSARIO_CACHE) return GLOSSARIO_CACHE;
+
+      const entries = [];
+
+      Object.entries(TRADUCOES_EPITETOS).forEach(([epiteto, traducao]) => {
+        const deuses = new Set();
+
+        Object.values(EPITETOS).forEach(dia => {
+          if (!dia || !dia.epítetos) return;
+          Object.entries(dia.epítetos).forEach(([div, lista]) => {
+            if (Array.isArray(lista) && lista.includes(epiteto)) {
+              deuses.add(div);
+            }
+          });
+        });
+
+        entries.push({
+          epiteto,
+          traducao,
+          deuses: Array.from(deuses).sort((a, b) => a.localeCompare(b, 'pt', { sensitivity: 'base' }))
+        });
+      });
+
+      // Ordem alfabética, ignorando acentos e maiúsculas
+      entries.sort((a, b) => a.epiteto.localeCompare(b.epiteto, 'pt', { sensitivity: 'base' }));
+
+      GLOSSARIO_CACHE = entries;
+      return entries;
+    }
+
+    function destacarTermo(texto, query) {
+      if (!query) return texto;
+      const safe = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      return texto.replace(new RegExp(`(${safe})`, 'gi'), '<mark>$1</mark>');
+    }
+
+    function renderGlossario() {
+      const listEl = document.getElementById('glossList');
+      const searchInput = document.getElementById('glossSearchInput');
+      const stats = document.getElementById('glossSearchStats');
+      if (!listEl) return;
+
+      const q = (searchInput ? searchInput.value : '').trim();
+      const qLow = q.toLowerCase();
+
+      const todos = buildGlossario();
+
+      const filtrados = qLow
+        ? todos.filter(item =>
+            item.epiteto.toLowerCase().includes(qLow) ||
+            item.traducao.toLowerCase().includes(qLow) ||
+            item.deuses.some(d => d.toLowerCase().includes(qLow))
+          )
+        : todos;
+
+      if (stats) {
+        stats.textContent = q
+          ? `${filtrados.length} resultado(s) para "${q}" — de ${todos.length} epítetos`
+          : `${todos.length} epítetos no glossário`;
+      }
+
+      if (filtrados.length === 0) {
+        listEl.innerHTML = `<div class="gloss-empty">Nenhum epíteto encontrado para "${q}".</div>`;
+        return;
+      }
+
+      listEl.innerHTML = filtrados.map(item => `
+        <div class="gloss-item">
+          <div class="gloss-epiteto">${destacarTermo(item.epiteto, q)}</div>
+          <div class="gloss-traducao">${destacarTermo(item.traducao, q)}</div>
+          ${item.deuses.length
+            ? `<div class="gloss-deuses">${item.deuses.map(d => `<span class="gloss-deus-tag">${destacarTermo(d, q)}</span>`).join('')}</div>`
+            : ''}
+        </div>
+      `).join('');
+    }
+
+    // Listeners do glossário
+    document.getElementById('glossSearchInput').addEventListener('input', (e) => {
+      const val = e.target.value;
+      document.getElementById('glossClearBtn').classList.toggle('visible', val.length > 0);
+      renderGlossario();
+    });
+    document.getElementById('glossClearBtn').addEventListener('click', () => {
+      document.getElementById('glossSearchInput').value = '';
+      document.getElementById('glossClearBtn').classList.remove('visible');
+      renderGlossario();
+    });
 
     /* ==================================================================
        14) ESTATUTO
@@ -3207,6 +3396,7 @@ const ordenadas = [...filtradas].sort((a, b) => {
       renderDevocional();
       renderCalendario();
       renderCirculares();
+      renderGlossario();
       setInterval(() => { if (currentView === 'devocional') renderDevocional(); }, 60 * 60 * 1000);
     }
     init();
