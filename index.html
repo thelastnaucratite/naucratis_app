@@ -679,24 +679,27 @@
       border-top: 4px solid var(--cor);
     }
     .dev-view-hero .dev-day {
-      font-family: var(--font-serif); font-size: 2rem;
+      font-family: var(--font-serif); font-size: 1.35rem;
       color: var(--title-color); margin-bottom: 0.3rem;
+      letter-spacing: 0.05em;
     }
     .dev-view-hero .dev-month {
       font-family: var(--font-serif); font-size: 0.85rem;
       letter-spacing: 3px; text-transform: uppercase;
       color: var(--cor); opacity: 0.85;
     }
-        /* Nome da(s) divindade(s) — logo abaixo do mês, em maiúsculas */
+    /* Nome da(s) divindade(s) — em destaque, ACIMA do numeral do dia */
     .dev-view-hero .dev-divindade {
       font-family: var(--font-serif);
-      font-size: 1rem;
-      letter-spacing: 0.15em;
+      font-size: 1.85rem;          /* maior que o numeral do dia */
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--title-color);
-      margin-top: 0.35rem;
-      line-height: 1.3;
+      margin-bottom: 0.35rem;
+      line-height: 1.25;
       opacity: 0.95;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
 
     /* Fase da lua — sutil, discreta */
@@ -767,7 +770,8 @@
 
     @media (max-width: 700px) {
       .dev-hino-scroll { max-height: 320px; padding: 0.8rem; font-size: 0.92rem; }
-            .dev-view-hero .dev-divindade { font-size: 0.85rem; letter-spacing: 0.1em; }
+      .dev-view-hero .dev-divindade { font-size: 1.2rem; letter-spacing: 0.08em; margin-bottom: 0.25rem; }
+      .dev-view-hero .dev-day { font-size: 0.9rem; }
       .dev-view-hero .dev-moon { font-size: 0.72rem; }
     }
 
@@ -1118,10 +1122,10 @@
     <section class="view" id="view-devocional">
       <h2 class="page-title">Devocional Dias Fixos</h2>
 
-            <div class="dev-view-hero">
+      <div class="dev-view-hero">
+        <div class="dev-divindade" id="devDivindade" style="display:none;">—</div>
         <div class="dev-day" id="devDayNum">—</div>
         <div class="dev-month" id="devMonthName">—</div>
-        <div class="dev-divindade" id="devDivindade" style="display:none;">—</div>
         <div class="dev-moon" id="devMoonPhase">—</div>
       </div>
 
@@ -1870,7 +1874,7 @@ Fumigação: Incenso
 Vem, venturoso Peã, assassino de Tício, lê Febo, de Licórea e de Mênfis, de muitas honras e dador de fortuna, Pítio Titã, da áurea lira e do arado, semeador, Grineu, Esminteu, assassino de Píton, délfico profeta, feroz nume lucífero, amado e ínclito jovem, (5) líder das Musas, regente dos coros, arqueiro que acerta ao longe, amante de Branco, Dídimo, puro, Oblíquo [Lóxias] que age ao longe, soberano de Delos, onividente de luzeiros olhos aos mortais, de áureos cabelos, declarando oráculos e augúrios imáculos, ouve as minhas preces pelo povo, com um benévolo coração: toda a vastidão infinita do Éter tu perscrutas do alto da rica Terra [Gaia] e através do crepúsculo; nas sombras silentes da noite contemplas as raízes do solo com olhar astral, e deténs os confins do cosmo todo: são teus o princípio e o fim das coisas que virão; (15) todo viçoso tu harmonizas a esfera celeste com tua cítara multivibrante, ora alcançando os mais baixos acordes, ora outra vez os mais sublimes, em dórica melodia harmônica. Mesclando toda a esfera celeste, discernes as raças viventes e com harmonia infundes um destino pancósmico aos homens, (20) distribuindo o inverno e o verão, ambos igualmente: com os mais baixos acordes, escolhes o inverno; o verão, com os mais sublimes; e tangendo uma melodia dórica, a flor da primavera amorosa. Por isso os mortais dão-te o nome de soberano e de Pan, deus bicórneo, quando envias ventos silvantes, e porque tens o selo e o molde de todo o cosmo. Ouve, venturoso, guardando os mistérios com súplice voz.`,
         ritoEstrutura: {
           preparacao: "Se possível, tome um banho; senão, apenas lave o rosto e as mãos. Acenda vela e incenso. Respire fundo e, em silêncio, concentre-se no rito.",
-          abertura: "Erga as mãos à meia altura e diga: Khairete, Theoï! Khaire Apolo [epíteto do mês]! Faça um breve silêncio ritualístico; em seguida, entoe um canto invocando Héstia.",
+          abertura: "Erga as mãos à meia altura e diga: Khairete, Theoi! Khaire Apolo [epíteto do mês]! Faça um breve silêncio ritualístico; em seguida, entoe um canto invocando Héstia.",
           libacaoPassos: [
             "1ª libação — Héstia Polyolbos e Apolo [epíteto do mês]: \"Ó Héstia Polyolbos, senhora do lar e da harmonia, e ó Apolo [epíteto do mês], recebam esta libação.\"",
             "2ª libação — Patronos da comunidade e divindade de maior kharis: \"Ó Zeus Xênios e Afrodite Pandemos, patronos de Náucratis, ó [DIVINDADE DE MAIOR KHARIS], a vós esta libação.\"",
@@ -1979,7 +1983,7 @@ HINO ÓRFICO 66: A HEFESTO
 Hefesto de coração brutal, magna força, fogo infatigável, lume em puras chamas, luzeiro nume aos mortais lucífero artesão eterno, mão forte, trabalhador, elemento impecável e parte do cosmo, devorador supremo, a tudo subjuga, a tudo consome! (5) Éter, sol, estrelas, lua, límpida luz: esses os membros de Hefesto, que manifesta aos mortais; Toda a casa tu possuis, toda a cidade, todos os povos; tu habitas o corpo dos mortais, ó forte multifortunado! Ouve-me, venturoso, celebro-te em sacratíssimas libações, sempre, para que venhas gentil aos nossos gratos trabalhos. Cessa a loucura furiosa do fogo infatigável, mantém acesa a chama da natureza em nossos corpos.`,
         ritoEstrutura: {
           preparacao: "Se possível, tome um banho; senão, apenas lave o rosto e as mãos. Acenda vela e incenso. Respire fundo e, em silêncio, concentre-se no rito.",
-          abertura: "Erga as mãos à meia altura e diga: Khairete, Theoï! Khaire Hefesto [epíteto do mês]! Faça um breve silêncio ritualístico; em seguida, entoe um canto invocando Héstia.",
+          abertura: "Erga as mãos à meia altura e diga: Khairete, Theoi! Khaire Hefesto [epíteto do mês]! Faça um breve silêncio ritualístico; em seguida, entoe um canto invocando Héstia.",
           libacaoPassos: [
             "1ª libação — Héstia Polyolbos e Hefesto [epíteto do mês]: \"Ó Héstia Polyolbos, senhora do lar e da harmonia, e ó Hefesto [epíteto do mês], recebam esta libação.\"",
             "2ª libação — Patronos da comunidade e divindade de maior kharis: \"Ó Zeus Xênios e Afrodite Pandemos, patronos de Náucratis, ó [DIVINDADE DE MAIOR KHARIS], a vós esta libação.\"",
@@ -2741,10 +2745,10 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
       const dayNum = dayDiff + 1;
       const di = dayInfo(targetMonth, dayNum);
 
-          elDay.textContent = `${ordinal(dayNum)} dia`;
+      elDay.textContent = `${ordinal(dayNum)} dia`;
       elMonth.textContent = m.name;
 
-      // Nome da(s) divindade(s) do dia, em maiúsculas
+      // Nome da(s) divindade(s) do dia, em maiúsculas — exibido ACIMA do numeral
       const elDiv = document.getElementById('devDivindade');
       const chaveDevParaNome = (dayNum === m.days) ? 'deipnon' : (DEVOCIONARIO[dayNum] ? dayNum : null);
       if (chaveDevParaNome && DEVOCIONARIO[chaveDevParaNome].divindades.length > 0) {
@@ -2800,7 +2804,15 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
         </div></div>`;
       }
 
-            if (dev.ritoEstrutura) {
+      // ===== Sugestões de Oferendas — abaixo dos Epítetos do Mês =====
+      if (dev.libacao || dev.oferenda) {
+        html += `<div class="dev-section"><h3>Sugestões de Oferendas</h3><div class="dev-text">
+          <p><strong>Librações:</strong> ${dev.libacao || '—'}</p>
+          <p><strong>Alimentícias:</strong> ${dev.oferenda || '—'}</p>
+        </div></div>`;
+      }
+
+      if (dev.ritoEstrutura) {
         const r = dev.ritoEstrutura;
         html += `<div class="dev-section"><h3>Estrutura do Rito</h3><div class="dev-text">`;
         html += `<p><strong>I. Preparação.</strong> ${r.preparacao}</p>`;
