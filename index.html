@@ -3450,10 +3450,7 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
       const listEl = document.getElementById('circList');
       const viewerEl = document.getElementById('circViewer');
       const searchInput = document.getElementById('circSearchInput');
-      const badge = document.getElementById('circBadge');
-
-      if (badge) badge.textContent = CIRCULARES.length;
-
+     
       if (!CIRCULARES || CIRCULARES.length === 0) {
         listEl.innerHTML = `<div class="circ-empty">Nenhuma circular publicada ainda.</div>`;
         viewerEl.style.display = 'none';
