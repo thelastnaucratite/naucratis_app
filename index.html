@@ -2770,12 +2770,21 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
         </div></div>`;
       }
 
-      if (dev.ritoEstrutura) {
+            if (dev.ritoEstrutura) {
         const r = dev.ritoEstrutura;
         html += `<div class="dev-section"><h3>Estrutura do Rito</h3><div class="dev-text">`;
         html += `<p><strong>I. Preparação.</strong> ${r.preparacao}</p>`;
         html += `<p><strong>II. Abertura — Saudação.</strong> ${aplicarEpitetos(r.abertura)}</p>`;
-        html += `<p><strong>III. Hino à Divindade.</strong> Entoe o Canto a Héstia (Oikos Philoi) e, em seguida, o hino específico do dia (abaixo).</p>`;
+
+        // III. Hino à Divindade — agora com o hino integrado
+        html += `<p><strong>III. Hino à Divindade.</strong> Entoe o Canto a Héstia (Oikos Philoi) e, em seguida, o hino específico do dia.</p>`;
+        if (dev.hinoTitulo) {
+          html += `<p style="font-family:var(--font-serif);font-size:0.75rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--cor);margin-top:0.6rem;margin-bottom:0.4rem;">${dev.hinoTitulo}</p>`;
+        }
+        if (dev.hinoTexto) {
+          html += `<div class="dev-hino-scroll" style="margin-bottom:0.9rem;">${dev.hinoTexto}</div>`;
+        }
+
         html += `<p><strong>IV. Libações.</strong></p><ol>`;
         r.libacaoPassos.forEach(p => { html += `<li>${aplicarEpitetos(p)}</li>`; });
         html += `</ol>`;
@@ -2785,17 +2794,12 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
         html += `<p><strong>VIII. Despedida.</strong> ${r.despedida}</p>`;
         html += `</div></div>`;
       }
+      }
 
       if (dev.ritoEspecial) {
         html += `<div class="dev-section"><h3>Rito Especial</h3><div class="dev-text"><pre style="white-space:pre-wrap;font-family:var(--font-sans);font-size:0.95rem;">${dev.ritoEspecial}</pre></div></div>`;
       }
 
-      if (dev.hinoTexto) {
-        html += `<div class="dev-section">
-          <h3>Hino — ${dev.hinoTitulo}</h3>
-          <div class="dev-hino-scroll">${dev.hinoTexto}</div>
-        </div>`;
-      }
 
       html += `<div class="dev-section"><h3>Libção e Oferenda (resumo)</h3><div class="dev-text">
         <p><strong>Libção:</strong> ${dev.libacao}</p>
