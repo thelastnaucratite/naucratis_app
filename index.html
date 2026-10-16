@@ -108,11 +108,12 @@
     }
     .menu-toggle:hover { background: var(--cor-clara); border-color: var(--cor-clara); }
     .menu-toggle svg { width: 26px; height: 26px; fill: currentColor; }
-        /* ===== BOTÃO HOME FIXO ===== */
+     /* ===== BOTÃO HOME FIXO — ABAIXO DO MENU ===== */
     .home-toggle {
       position: fixed;
-      top: 1rem;
-      right: 1rem;
+      top: 4.5rem;         /* fica logo abaixo do hamburger (que ocupa ~1rem + 44px) */
+      left: 1rem;          /* alinhado à esquerda, igual ao hamburger */
+      right: auto;         /* desliga o alinhamento à direita */
       z-index: 1000;
       background: var(--sidebar-bg);
       border: 1px solid var(--sidebar-border);
@@ -140,10 +141,12 @@
       fill: currentColor;
       display: block;
     }
+
+    /* Ajustes para celular */
     @media (max-width: 700px) {
       .home-toggle {
-        top: 0.8rem;
-        right: 0.8rem;
+        top: 3.8rem;     /* um pouco mais próximo do hamburger no mobile */
+        left: 0.8rem;
         width: 40px;
         height: 40px;
       }
