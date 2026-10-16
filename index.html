@@ -1111,6 +1111,16 @@
       </ul>
       <div class="sidebar-divider"></div>
     </div>
+        <div id="calendarioWrap" style="display:none;">
+      <div class="sidebar-label">Calendário</div>
+      <ul class="nav-chapters" id="calendarioNav">
+        <li><a data-cal="sagrado">Calendário Sagrado</a></li>
+        <li><a data-cal="purificacao">Período de Purificação</a></li>
+        <li><a data-cal="silencio">Silêncio Ritualístico</a></li>
+        <li><a data-cal="sobre">Sobre este calendário</a></li>
+      </ul>
+      <div class="sidebar-divider"></div>
+    </div>
 
     <div class="lideranças-list">
       <strong>Lideranças Naucratitas</strong>
@@ -1267,6 +1277,43 @@
         </div>
       </div>
     </section>
+        </section>
+
+    <!-- ===================== VIEW: PERÍODO DE PURIFICAÇÃO ===================== -->
+    <section class="view" id="view-purificacao">
+      <h2 class="page-title">Período de Purificação</h2>
+      <div class="est-chapter-content">
+        <div class="content-inner">
+          <p>O Período de Purificação em nossa comunidade cobre os últimos 11 ou 12 dias do calendário lunar e tem como principal objetivo nos preparar física e espiritualmente para o grande rito do Deipnon. A partir do primeiro dia da purificação, limpamos nossas casas, nossos altares e nossos objetos de culto. É um momento de introspecção, no qual refletimos sobre nossos sentimentos, receios, vícios e excessos que nos afastam da luz dos imortais.</p>
+          <p>Durante esse período, celebramos os seguintes dias sagrados: <strong>Zeus Apotropaico</strong>, no 19º dia do mês, e o rito a <strong>Hades e Perséfone</strong>, no 25º dia. Aconselham-se jejuns e outras formas de privação de coisas ou atos que não sejam virtuosos ou que alimentem vícios. Lembre-se: os últimos dias do mês são um momento propício para encerrar ciclos, repensar escolhas e planejar as semanas seguintes.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== VIEW: SILÊNCIO RITUALÍSTICO ===================== -->
+    <section class="view" id="view-silencio">
+      <h2 class="page-title">Silêncio Ritualístico</h2>
+      <div class="est-chapter-content">
+        <div class="content-inner">
+          <p>O Período de Silêncio Ritualístico é a última etapa de nossa preparação para o Deipnon. Ele abarca os últimos três dias do mês que antecedem a noite de Deipnon. Neste momento do mês, oferecemos aos Deuses o silêncio e a introspecção. Fazemos, assim, um gesto simbólico para que não nos esqueçamos da importância de ouvir os Deuses.</p>
+          <p>Na prática, mantemos nossa rotina devocional, mas, em vez de palavras, honramos os Deuses com nossos gestos. Logo, no lugar da prece, meditamos sobre os Deuses e as coisas sagradas. A libação e outras oferendas são feitas em silêncio absoluto. O Período de Silêncio Ritualístico é encerrado antes da noite de Deipnon.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== VIEW: SOBRE ESTE CALENDÁRIO ===================== -->
+    <section class="view" id="view-sobre-calendario">
+      <h2 class="page-title">Sobre este calendário</h2>
+      <div class="est-chapter-content">
+        <div class="content-inner">
+          <p>Este calendário é <strong>lunissolar</strong>: acompanha as fases da Lua, que marcam a duração dos meses, e o ciclo solar, que marca as estações e os festivais anuais. É composto por 12 meses, podendo chegar a 13 para reconciliar o ano solar de 365 dias com o ano lunar de 354 dias.</p>
+          <p>Ele combina três camadas de festividades: festivais modernos autorais da comunidade, como a <em>Helleneia Maior</em> e a <em>Patroneia Maior</em>; festivais antigos da Ática, de Delfos e de Téspias; e datas cívicas brasileiras ressignificadas para o culto aos Deuses gregos, como o Carnaval, agora <em>Katharsia</em> em honra a Dioniso, e o Dia das Mães, agora <em>Panmeteria</em>.</p>
+          <p style="text-align:right;font-style:italic;margin-top:1.5rem;">— Hecatodoros, 05 de Heliogennion, Ano I da fundação de Náucratis.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== VIEW: ESTATUTO ===================== -->
 
     <!-- ===================== VIEW: ESTATUTO ===================== -->
     <section class="view" id="view-estatuto">
@@ -2657,6 +2704,8 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
     const chapterNav = document.getElementById('chapterNav');
     const devocionalWrap = document.getElementById('devocionalWrap');
     const devocionalNav = document.getElementById('devocionalNav');
+        const calendarioWrap = document.getElementById('calendarioWrap');
+    const calendarioNav = document.getElementById('calendarioNav');
 
     let currentView = 'home';
     let currentDayOffset = 0;
@@ -2694,14 +2743,48 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
         if (window.innerWidth <= 700) toggleMenu(false);
       });
     });
-    function switchView(view) {
+       function switchView(view) {
       currentView = view;
       document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
       document.getElementById('view-' + view).classList.add('active');
       navMain.querySelectorAll('a').forEach(a => a.classList.toggle('active', a.dataset.view === view));
-            chaptersWrap.style.display = (view === 'estatuto') ? 'block' : 'none';
+
+      chaptersWrap.style.display = (view === 'estatuto') ? 'block' : 'none';
       devocionalWrap.style.display = (view === 'devocional' || view === 'glossario') ? 'block' : 'none';
-          devocionalNav.querySelectorAll('a[data-dev]').forEach(link => {
+      calendarioWrap.style.display = (view === 'calendario' || view === 'purificacao' || view === 'silencio' || view === 'sobre-calendario') ? 'block' : 'none';
+
+      // Destaca o item ativo na sub-navegação do Devocional
+      if (devocionalNav) {
+        devocionalNav.querySelectorAll('a').forEach(a => {
+          const isActive =
+            (view === 'devocional' && a.dataset.dev === 'dias-fixos') ||
+            (view === 'glossario' && a.dataset.dev === 'glossario');
+          a.classList.toggle('active', isActive);
+        });
+      }
+
+      // Destaca o item ativo na sub-navegação do Calendário
+      if (calendarioNav) {
+        calendarioNav.querySelectorAll('a').forEach(a => {
+          const isActive =
+            (view === 'calendario' && a.dataset.cal === 'sagrado') ||
+            (view === 'purificacao' && a.dataset.cal === 'purificacao') ||
+            (view === 'silencio' && a.dataset.cal === 'silencio') ||
+            (view === 'sobre-calendario' && a.dataset.cal === 'sobre');
+          a.classList.toggle('active', isActive);
+        });
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (view === 'devocional') { currentDayOffset = 0; renderDevocional(); }
+      if (view === 'calendario') { renderCalendario(); }
+      if (view === 'home') { renderHome(); }
+      if (view === 'circulares') { renderCirculares(); }
+      if (view === 'glossario') { renderGlossario(); }
+    }
+
+    // Handlers das sub-navegações — FORA do switchView (evita re-registrar listeners)
+    devocionalNav.querySelectorAll('a[data-dev]').forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
         const destino = link.dataset.dev;
@@ -2709,6 +2792,22 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
         else if (destino === 'glossario') switchView('glossario');
         if (window.innerWidth <= 700) toggleMenu(false);
       });
+    });
+
+    calendarioNav.querySelectorAll('a[data-cal]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const destino = link.dataset.cal;
+        if (destino === 'sagrado') switchView('calendario');
+        else if (destino === 'purificacao') switchView('purificacao');
+        else if (destino === 'silencio') switchView('silencio');
+        else if (destino === 'sobre') switchView('sobre-calendario');
+        if (window.innerWidth <= 700) toggleMenu(false);
+      });
+    });
+
+    document.querySelectorAll('.shortcut[data-goto]').forEach(sc => {
+      sc.addEventListener('click', () => switchView(sc.dataset.goto));
     });
 
       // Destaca o item ativo na sub-navegação do Devocional
