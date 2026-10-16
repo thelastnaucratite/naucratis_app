@@ -1059,6 +1059,86 @@
       font-style: italic;
     }
     .app-footer span { font-weight: 600; color: var(--title-color); }
+
+    /* ===== BARRA DE NAVEGAÇÃO RÁPIDA (DEVOCIONAL) ===== */
+    .dev-jump {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 0.9rem 1.1rem;
+      margin-bottom: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.55rem;
+      font-family: var(--font-sans);
+    }
+    .dev-jump label {
+      font-family: var(--font-serif);
+      font-size: 0.62rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--cor);
+      margin-right: 0.15rem;
+    }
+    .dev-jump select {
+      padding: 0.4rem 0.75rem;
+      border: 1px solid var(--card-border);
+      border-radius: 30px;
+      background: var(--white);
+      color: var(--text-body);
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      cursor: pointer;
+      outline: none;
+      transition: var(--transition);
+    }
+    .dev-jump select:hover,
+    .dev-jump select:focus { border-color: var(--cor); }
+    .dev-jump-btn {
+      background: var(--cor);
+      color: #fff;
+      border: none;
+      padding: 0.45rem 1rem;
+      border-radius: 30px;
+      font-family: var(--font-serif);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .dev-jump-btn:hover { background: var(--cor-clara); transform: translateY(-1px); }
+    .dev-jump-shortcuts {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-left: auto;
+    }
+    .dev-jump-shortcuts button {
+      background: var(--cor-suave);
+      color: var(--cor-escura);
+      border: 1px solid var(--card-border);
+      padding: 0.35rem 0.8rem;
+      border-radius: 30px;
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .dev-jump-shortcuts button:hover {
+      background: var(--cor);
+      color: #fff;
+      border-color: var(--cor);
+    }
+    @media (max-width: 700px) {
+      .dev-jump { padding: 0.75rem 0.9rem; }
+      .dev-jump select { flex: 1; min-width: 0; }
+      .dev-jump-shortcuts { width: 100%; margin-left: 0; justify-content: space-between; }
+    }
   </style>
 </head>
 <body>
@@ -1185,6 +1265,17 @@
     <!-- ===================== VIEW: DEVOCIONAL ===================== -->
     <section class="view" id="view-devocional">
       <h2 class="page-title">Devocional Dias Fixos</h2>
+
+      <div class="dev-jump" id="devJumpBar">
+        <label>Ir para:</label>
+        <select id="devJumpMonth" aria-label="Mês"></select>
+        <select id="devJumpDay" aria-label="Dia"></select>
+        <button class="dev-jump-btn" id="devJumpGo">Ir</button>
+        <div class="dev-jump-shortcuts">
+          <button data-jump="noumenia" title="Dia 1 de qualquer mês">☾ Noumenia</button>
+          <button data-jump="deipnon" title="Último dia do mês (Deipnon)">● Deipnon</button>
+        </div>
+      </div>
 
       <div class="dev-view-hero">
         <div class="dev-divindade" id="devDivindade" style="display:none;">—</div>
@@ -2591,7 +2682,8 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
         }
       }
     };
-        /* ==================================================================
+
+    /* ==================================================================
        6-bis) DIAS COM EPÍTETOS FIXOS
        Dias em que os epítetos das divindades já estão fixados no próprio
        rito (Zeus Ktesios, Apolo Noumenios, Héstia Polyolbos, Zeus Xênios,
@@ -2600,10 +2692,6 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
        "Epítetos do Mês" NÃO deve aparecer, pois o epíteto não varia.
        ================================================================== */
     const DIAS_EPITETOS_FIXOS = [1, 9, 12, 13, 19, 25, 'deipnon'];
-
-    /* ==================================================================
-       7) HELPERS
-       ================================================================== */
 
     /* ==================================================================
        7) HELPERS
@@ -2720,6 +2808,86 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
     let currentView = 'home';
     let currentDayOffset = 0;
 
+    /* ==================================================================
+       9-bis) UTILITÁRIO + ROTEADOR POR HASH
+       ================================================================== */
+    function monthDayToOffset(monthIdx, dayNum) {
+      const m = MONTHS[monthIdx];
+      if (!m) return 0;
+      const start = new Date(m.start[0], m.start[1] - 1, m.start[2]);
+      const targetDt = addDays(start.getFullYear(), start.getMonth() + 1, start.getDate(), dayNum - 1);
+      const hoje = stripTime(new Date());
+      return Math.round((targetDt - hoje) / (1000 * 60 * 60 * 24));
+    }
+
+    function offsetToMonthDay(offset) {
+      const base = new Date();
+      base.setDate(base.getDate() + offset);
+      const mi = findMonthIndexForDate(base);
+      if (mi < 0) return null;
+      const start = new Date(MONTHS[mi].start[0], MONTHS[mi].start[1] - 1, MONTHS[mi].start[2]);
+      const dayNum = Math.round((stripTime(base) - start) / (1000 * 60 * 60 * 24)) + 1;
+      if (dayNum < 1 || dayNum > MONTHS[mi].days) return null;
+      return { monthIdx: mi, dayNum };
+    }
+
+    const VIEWS_VALIDAS = ['home','devocional','glossario','calendario','purificacao','silencio','sobre-calendario','estatuto','circulares'];
+    let _lastAppliedHash = '';
+
+    function stateToHash(state) {
+      if (!state || !state.view) return '#home';
+      if (state.view === 'devocional' && typeof state.monthIdx === 'number' && typeof state.dayNum === 'number') {
+        return `#devocional/${state.monthIdx}/${state.dayNum}`;
+      }
+      if (state.view === 'estatuto' && state.chapterId) {
+        return `#estatuto/${state.chapterId}`;
+      }
+      return '#' + state.view;
+    }
+
+    function parseHash() {
+      const raw = (location.hash || '').replace(/^#/, '');
+      if (!raw) return { view: 'home' };
+      const parts = raw.split('/');
+      const view = parts[0];
+      if (!VIEWS_VALIDAS.includes(view)) return { view: 'home' };
+      if (view === 'devocional' && parts.length >= 3) {
+        const mi = parseInt(parts[1], 10);
+        const dn = parseInt(parts[2], 10);
+        if (!isNaN(mi) && !isNaN(dn) && MONTHS[mi]) return { view, monthIdx: mi, dayNum: dn };
+      }
+      if (view === 'estatuto' && parts.length >= 2) {
+        return { view, chapterId: parts[1] };
+      }
+      return { view };
+    }
+
+    function updateHash(state) {
+      const newHash = stateToHash(state);
+      if (_lastAppliedHash === newHash) return;
+      _lastAppliedHash = newHash;
+      if (location.hash !== newHash) {
+        try { location.hash = newHash; } catch (e) {}
+      }
+    }
+
+    function applyHashState(parsed) {
+      if (parsed.view === 'devocional' && typeof parsed.monthIdx === 'number' && typeof parsed.dayNum === 'number') {
+        switchView('devocional', { monthIdx: parsed.monthIdx, dayNum: parsed.dayNum });
+      } else if (parsed.view === 'estatuto' && parsed.chapterId) {
+        switchView('estatuto', { chapterId: parsed.chapterId });
+      } else {
+        switchView(parsed.view);
+      }
+    }
+
+    function handleHashChange() {
+      const h = location.hash || '#home';
+      if (h === _lastAppliedHash) return;
+      _lastAppliedHash = h;
+      applyHashState(parseHash());
+    }
+
     function toggleMenu(open) {
       const isOpen = sidebar.classList.contains('open');
       const shouldOpen = open !== undefined ? open : !isOpen;
@@ -2754,7 +2922,8 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
       });
     });
 
-    function switchView(view) {
+    function switchView(view, opts) {
+      opts = opts || {};
       currentView = view;
       document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
       document.getElementById('view-' + view).classList.add('active');
@@ -2786,12 +2955,42 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
         });
       }
 
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      if (view === 'devocional') { currentDayOffset = 0; renderDevocional(); }
+      if (view === 'devocional') {
+        if (typeof opts.dayOffset === 'number') {
+          currentDayOffset = opts.dayOffset;
+        } else if (typeof opts.monthIdx === 'number' && typeof opts.dayNum === 'number') {
+          currentDayOffset = monthDayToOffset(opts.monthIdx, opts.dayNum);
+        } else {
+          currentDayOffset = 0;
+        }
+        renderDevocional();
+      }
+
+      if (view === 'estatuto' && opts.chapterId) {
+        loadChapter(opts.chapterId);
+      }
+
       if (view === 'calendario') { renderCalendario(); }
       if (view === 'home') { renderHome(); }
       if (view === 'circulares') { renderCirculares(); }
       if (view === 'glossario') { renderGlossario(); }
+
+      const state = { view };
+      if (view === 'devocional') {
+        if (typeof opts.monthIdx === 'number' && typeof opts.dayNum === 'number') {
+          state.monthIdx = opts.monthIdx;
+          state.dayNum = opts.dayNum;
+        } else {
+          const md = offsetToMonthDay(currentDayOffset);
+          if (md) { state.monthIdx = md.monthIdx; state.dayNum = md.dayNum; }
+        }
+      }
+      if (view === 'estatuto') {
+        state.chapterId = opts.chapterId || (typeof currentChapterId !== 'undefined' ? currentChapterId : 'preambulo');
+      }
+      updateHash(state);
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     // Handlers das sub-navegações — FORA do switchView (evita re-registrar listeners)
@@ -2954,6 +3153,7 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
           <div class="dev-text"><p>Hoje é o ${ordinal(dayNum)} dia do mês de ${m.name}. Aproveite o dia para orar aos Deuses de sua devoção e fazer uma libação.</p></div>
         </div>`;
         document.getElementById('devBadge').textContent = dayNum;
+        if (window._syncDevJump) window._syncDevJump();
         return;
       }
 
@@ -3033,10 +3233,71 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
 
       elContent.innerHTML = html;
       document.getElementById('devBadge').textContent = dayNum;
+      if (window._syncDevJump) window._syncDevJump();
     }
     document.getElementById('devPrevDay').addEventListener('click', () => { currentDayOffset--; renderDevocional(); });
     document.getElementById('devNextDay').addEventListener('click', () => { currentDayOffset++; renderDevocional(); });
     document.getElementById('devTodayBtn').addEventListener('click', () => { currentDayOffset = 0; renderDevocional(); });
+
+    /* ===== Barra "Ir para" ===== */
+    function jumpToMonthDay(monthIdx, dayNum) {
+      switchView('devocional', { monthIdx: monthIdx, dayNum: dayNum });
+    }
+
+    function initDevJump() {
+      const selMonth = document.getElementById('devJumpMonth');
+      const selDay = document.getElementById('devJumpDay');
+      const btnGo = document.getElementById('devJumpGo');
+      if (!selMonth || !selDay || !btnGo) return;
+
+      selMonth.innerHTML = MONTHS.map((m, i) => `<option value="${i}">${m.name}</option>`).join('');
+
+      function updateDays() {
+        const mi = parseInt(selMonth.value, 10);
+        const total = MONTHS[mi].days;
+        const anterior = parseInt(selDay.value, 10) || 1;
+        selDay.innerHTML = '';
+        for (let d = 1; d <= total; d++) {
+          const opt = document.createElement('option');
+          opt.value = d;
+          opt.textContent = `Dia ${String(d).padStart(2, '0')}`;
+          selDay.appendChild(opt);
+        }
+        selDay.value = Math.min(anterior, total);
+      }
+      selMonth.addEventListener('change', updateDays);
+      updateDays();
+
+      function syncFromCurrent() {
+        const base = new Date();
+        base.setDate(base.getDate() + currentDayOffset);
+        const mi = findMonthIndexForDate(base);
+        if (mi < 0) return;
+        selMonth.value = mi;
+        updateDays();
+        const start = new Date(MONTHS[mi].start[0], MONTHS[mi].start[1] - 1, MONTHS[mi].start[2]);
+        const dayNum = Math.round((stripTime(base) - start) / (1000 * 60 * 60 * 24)) + 1;
+        if (dayNum >= 1 && dayNum <= MONTHS[mi].days) selDay.value = dayNum;
+      }
+
+      btnGo.addEventListener('click', () => {
+        jumpToMonthDay(parseInt(selMonth.value, 10), parseInt(selDay.value, 10));
+      });
+
+      document.querySelectorAll('.dev-jump-shortcuts button').forEach(b => {
+        b.addEventListener('click', () => {
+          const base = new Date();
+          base.setDate(base.getDate() + currentDayOffset);
+          const mi = findMonthIndexForDate(base);
+          const mm = mi < 0 ? 0 : mi;
+          if (b.dataset.jump === 'noumenia') jumpToMonthDay(mm, 1);
+          else if (b.dataset.jump === 'deipnon') jumpToMonthDay(mm, MONTHS[mm].days);
+        });
+      });
+
+      window._syncDevJump = syncFromCurrent;
+      syncFromCurrent();
+    }
 
     /* ==================================================================
        12) CALENDÁRIO
@@ -3171,11 +3432,7 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
     }
     function irParaDevocional(monthIdx, dayNum) {
       closeCalModal();
-      const startDt = new Date(MONTHS[monthIdx].start[0], MONTHS[monthIdx].start[1] - 1, MONTHS[monthIdx].start[2]);
-      const targetDt = addDays(startDt.getFullYear(), startDt.getMonth() + 1, startDt.getDate(), dayNum - 1);
-      const hoje = new Date();
-      currentDayOffset = Math.round((targetDt - stripTime(hoje)) / (1000 * 60 * 60 * 24));
-      switchView('devocional');
+      switchView('devocional', { monthIdx: monthIdx, dayNum: dayNum });
     }
     window.irParaDevocional = irParaDevocional;
     document.getElementById('calModalClose').addEventListener('click', closeCalModal);
@@ -3427,6 +3684,9 @@ const ordenadas = [...filtradas].sort((a, b) => {
       estContentInner.innerHTML = chapter.content;
       highlightChapterNav(id);
       updateEstNavButtons(id);
+      if (currentView === 'estatuto') {
+        updateHash({ view: 'estatuto', chapterId: id });
+      }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
     function updateEstNavButtons(id) {
@@ -3486,9 +3746,20 @@ const ordenadas = [...filtradas].sort((a, b) => {
       loadChapter('preambulo');
       renderHome();
       renderDevocional();
+      initDevJump();
       renderCalendario();
       renderCirculares();
       renderGlossario();
+
+      if (location.hash) {
+        _lastAppliedHash = location.hash;
+        applyHashState(parseHash());
+      } else {
+        try { history.replaceState(null, '', '#home'); } catch (e) {}
+        _lastAppliedHash = '#home';
+      }
+      window.addEventListener('hashchange', handleHashChange);
+
       setInterval(() => { if (currentView === 'devocional') renderDevocional(); }, 60 * 60 * 1000);
     }
     init();
