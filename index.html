@@ -2806,15 +2806,7 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
     document.querySelectorAll('.shortcut[data-goto]').forEach(sc => {
       sc.addEventListener('click', () => switchView(sc.dataset.goto));
     });
-
-      // Destaca o item ativo na sub-navegação do Devocional
-      if (devocionalNav) {
-        devocionalNav.querySelectorAll('a').forEach(a => {
-          const isActive =
-            (view === 'devocional' && a.dataset.dev === 'dias-fixos') ||
-            (view === 'glossario' && a.dataset.dev === 'glossario');
-          a.classList.toggle('active', isActive);
-        });
+      
       }
       window.scrollTo({ top: 0, behavior: 'smooth' });
       if (view === 'devocional') { currentDayOffset = 0; renderDevocional(); }
@@ -2823,7 +2815,6 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
       if (view === 'circulares') { renderCirculares(); }
             if (view === 'circulares') { renderCirculares(); }
       if (view === 'glossario') { renderGlossario(); }
-    }
     document.querySelectorAll('.shortcut[data-goto]').forEach(sc => {
       sc.addEventListener('click', () => switchView(sc.dataset.goto));
     });
