@@ -687,12 +687,29 @@
       letter-spacing: 3px; text-transform: uppercase;
       color: var(--cor); opacity: 0.85;
     }
-    .dev-view-hero .dev-greg {
-      font-family: var(--font-sans); font-style: italic;
-      font-size: 0.9rem; color: var(--text-muted); margin-top: 0.3rem;
+        /* Nome da(s) divindade(s) — logo abaixo do mês, em maiúsculas */
+    .dev-view-hero .dev-divindade {
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--title-color);
+      margin-top: 0.35rem;
+      line-height: 1.3;
+      opacity: 0.95;
     }
+
+    /* Fase da lua — sutil, discreta */
     .dev-view-hero .dev-moon {
-      font-size: 1.4rem; margin-top: 0.5rem;
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      opacity: 0.6;
+      letter-spacing: 0.08em;
+      margin-top: 0.6rem;
+    }
+    .dev-view-hero .dev-moon::first-letter {
+      font-size: 0.95rem;
     }
 
     .dev-section {
@@ -750,6 +767,8 @@
 
     @media (max-width: 700px) {
       .dev-hino-scroll { max-height: 320px; padding: 0.8rem; font-size: 0.92rem; }
+            .dev-view-hero .dev-divindade { font-size: 0.85rem; letter-spacing: 0.1em; }
+      .dev-view-hero .dev-moon { font-size: 0.72rem; }
     }
 
     .dev-day-nav {
@@ -1099,10 +1118,10 @@
     <section class="view" id="view-devocional">
       <h2 class="page-title">Devocional Dias Fixos</h2>
 
-      <div class="dev-view-hero">
+            <div class="dev-view-hero">
         <div class="dev-day" id="devDayNum">—</div>
         <div class="dev-month" id="devMonthName">—</div>
-        <div class="dev-greg" id="devGregDate">—</div>
+        <div class="dev-divindade" id="devDivindade" style="display:none;">—</div>
         <div class="dev-moon" id="devMoonPhase">—</div>
       </div>
 
@@ -2722,9 +2741,20 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
       const dayNum = dayDiff + 1;
       const di = dayInfo(targetMonth, dayNum);
 
-      elDay.textContent = `${ordinal(dayNum)} dia`;
+          elDay.textContent = `${ordinal(dayNum)} dia`;
       elMonth.textContent = m.name;
-      elGreg.textContent = `${fmtGregFull(di.dt)} · ${WD[di.dt.getDay()]}`;
+
+      // Nome da(s) divindade(s) do dia, em maiúsculas
+      const elDiv = document.getElementById('devDivindade');
+      const chaveDevParaNome = (dayNum === m.days) ? 'deipnon' : (DEVOCIONARIO[dayNum] ? dayNum : null);
+      if (chaveDevParaNome && DEVOCIONARIO[chaveDevParaNome].divindades.length > 0) {
+        elDiv.textContent = DEVOCIONARIO[chaveDevParaNome].divindades.join(' · ').toUpperCase();
+        elDiv.style.display = 'block';
+      } else {
+        elDiv.style.display = 'none';
+      }
+
+      // Fase da lua — apenas emoji e nome do ciclo, sem a data civil
       elMoon.textContent = `${di.moon.emoji} ${di.moon.name}`;
 
       const chaveDev = (dayNum === m.days) ? 'deipnon' : (DEVOCIONARIO[dayNum] ? dayNum : null);
