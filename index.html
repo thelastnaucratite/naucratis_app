@@ -3151,7 +3151,6 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
           <h3>Dia sem Rito Fixo</h3>
           <div class="dev-text"><p>Hoje é o ${ordinal(dayNum)} dia do mês de ${m.name}. Aproveite o dia para orar aos Deuses de sua devoção e fazer uma libação.</p></div>
         </div>`;
-        document.getElementById('devBadge').textContent = dayNum;
         if (window._syncDevJump) window._syncDevJump();
         return;
       }
@@ -3231,7 +3230,6 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
       }
 
       elContent.innerHTML = html;
-      document.getElementById('devBadge').textContent = dayNum;
       if (window._syncDevJump) window._syncDevJump();
     }
     document.getElementById('devPrevDay').addEventListener('click', () => { currentDayOffset--; renderDevocional(); });
