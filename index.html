@@ -1005,7 +1005,7 @@
       .circ-viewer-title { order: -1; }
     }
         /* ===== GLOSSÁRIO ===== */
-        /* ===== GLOSSÁRIO — novo design ===== */
+          /* ===== GLOSSÁRIO — novo design ===== */
     .gloss-search-row {
       display: flex; flex-wrap: wrap; gap: 0.6rem;
       align-items: center; margin-bottom: 1rem;
@@ -1017,75 +1017,16 @@
       flex: 1 1 100%; margin: 0; text-align: left; padding-left: 0.4rem;
     }
 
-    /* Índice de divindades (chips) */
-    .gloss-index {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 0.9rem 1rem 1rem;
+    /* Barra "Ir para" do Glossário — herda .dev-jump */
+    .gloss-jump {
       margin-bottom: 1.1rem;
     }
-    .gloss-index-label {
-      font-family: var(--font-serif);
-      font-size: 0.65rem; letter-spacing: 3px;
-      text-transform: uppercase; color: var(--cor);
-      margin-bottom: 0.65rem;
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 0.5rem; flex-wrap: wrap;
+    .gloss-jump select {
+      min-width: 180px;
+      max-width: 260px;
     }
-    .gloss-index-label .count {
-      font-family: var(--font-sans); font-size: 0.68rem;
-      letter-spacing: 0.5px; color: var(--text-muted);
-      text-transform: none; font-style: italic; opacity: 0.8;
-    }
-    .gloss-index-chips {
-      display: flex; flex-wrap: wrap; gap: 0.45rem;
-    }
-    .gloss-chip {
-      display: inline-flex; align-items: center; gap: 0.35rem;
-      background: var(--white);
-      border: 1px solid var(--card-border);
-      color: var(--text-body);
-      padding: 0.35rem 0.75rem;
-      border-radius: 30px;
-      font-family: var(--font-serif);
-      font-size: 0.72rem;
-      letter-spacing: 0.04em;
-      cursor: pointer;
-      transition: var(--transition);
-      white-space: nowrap;
-    }
-    .gloss-chip .chip-count {
-      font-family: var(--font-sans);
-      font-size: 0.62rem;
-      font-style: italic;
-      opacity: 0.7;
-      letter-spacing: 0;
-    }
-    .gloss-chip:hover {
-      border-color: var(--cor);
-      color: var(--cor-escura);
-      transform: translateY(-1px);
-      box-shadow: 0 6px 14px rgba(0,0,0,0.06);
-    }
-    .gloss-chip.active {
-      background: var(--cor);
-      border-color: var(--cor);
-      color: #fff;
-      font-weight: 600;
-    }
-    .gloss-chip.active .chip-count { opacity: 0.9; color: #fff; }
-    .gloss-chip.chip-all {
-      background: var(--cor-suave);
-      border-color: var(--card-border);
-      color: var(--cor-escura);
-      font-weight: 600;
-    }
-    .gloss-chip.chip-all.active {
-      background: var(--cor-escura);
-      color: #fff;
-      border-color: var(--cor-escura);
+    @media (max-width: 700px) {
+      .gloss-jump select { max-width: none; flex: 1; }
     }
 
     /* Lista de deuses */
@@ -1438,11 +1379,12 @@
     </section>
         <!-- ===================== VIEW: GLOSSÁRIO ===================== -->
         <!-- ===================== VIEW: GLOSSÁRIO ===================== -->
+        <!-- ===================== VIEW: GLOSSÁRIO ===================== -->
     <section class="view" id="view-glossario">
       <h2 class="page-title">Glossário de Epítetos</h2>
 
       <div class="circ-intro">
-        <p>Todos os epítetos dos Deuses presentes neste aplicativo, com suas respectivas traduções, agrupados por divindade em ordem alfabética. Use o índice abaixo para escolher um Deus ou busque por epíteto, tradução ou nome da divindade.</p>
+        <p>Todos os epítetos dos Deuses presentes neste aplicativo, com suas respectivas traduções, agrupados por divindade em ordem alfabética. Use a barra abaixo para escolher um Deus ou busque por epíteto, tradução ou nome da divindade.</p>
       </div>
 
       <div class="gloss-search-row">
@@ -1454,12 +1396,13 @@
         <div class="est-search-stats" id="glossSearchStats"></div>
       </div>
 
-      <div class="gloss-index" id="glossIndex">
-        <div class="gloss-index-label">
-          <span>Índice de Divindades</span>
-          <span class="count" id="glossIndexCount"></span>
+      <div class="dev-jump gloss-jump" id="glossJumpBar">
+        <label>Ir para:</label>
+        <select id="glossJumpDeus" aria-label="Divindade"></select>
+        <button class="dev-jump-btn" id="glossJumpGo">Ir</button>
+        <div class="dev-jump-shortcuts" style="margin-left:auto;">
+          <button type="button" id="glossJumpAll" title="Mostrar todas as divindades">✦ Todas</button>
         </div>
-        <div class="gloss-index-chips" id="glossIndexChips"></div>
       </div>
 
       <div id="glossList" class="gloss-container"></div>
@@ -3670,59 +3613,41 @@ const ordenadas = [...filtradas].sort((a, b) => {
       renderCirculares();
     });
           /* ==================================================================
+           /* ==================================================================
        13-bis) GLOSSÁRIO DE EPÍTETOS — agrupado por divindade (unificada)
        ================================================================== */
     let GLOSSARIO_CACHE = null;
     let glossDeusSelecionado = null; // null = "Todas"
 
-    /* Normaliza string para ordenação/busca (sem acentos, minúsculo) */
     function _norm(s) {
       return (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
     }
 
-    /* Mapa de unificação: nomes compostos que devem ser fundidos no deus principal.
-       Atenção: o valor deve ser EXATAMENTE o nome base como aparece em EPITETOS
-       (ou um nome novo, se o deus base não existir em EPITETOS). */
     const UNIFICAR_DIVINDADES = {
-      // Zeus
       "Zeus Xênios": "Zeus",
       "Zeus Ktesios": "Zeus",
       "Zeus Apotropaico": "Zeus",
       "Zeus Soter": "Zeus",
-      // Afrodite
       "Afrodite Pandemos": "Afrodite",
-      // Apolo
       "Apolo Noumenios": "Apolo",
-      // Hades
       "Hades Euboleus": "Hades",
       "Hades Eubouleus": "Hades",
-      // Perséfone
       "Perséfone Biodoti": "Perséfone",
-      // Hécate
       "Hécate Borborophorba": "Hécate",
-      // Héstia
       "Héstia Polyolbos": "Héstia",
-      // Deméter
       "Deméter Eleusinia": "Deméter",
-      // Dioniso
       "Dioniso Eubouleus": "Dioniso",
-      // Hermes
       "Hermes Psychopompos": "Hermes",
-      // Todos os Deuses Gregos (plural) permanece como está
     };
 
     function _nomeUnificado(nome) {
       return UNIFICAR_DIVINDADES[nome] || nome;
     }
 
-    /* Constrói a lista de divindades unificadas, cada uma com seus
-       epítetos + traduções em ordem alfabética. */
     function buildGlossario() {
       if (GLOSSARIO_CACHE) return GLOSSARIO_CACHE;
 
-      // Mapa: nomeUnificado -> Set de epítetos
       const mapa = new Map();
-
       Object.values(EPITETOS).forEach(dia => {
         if (!dia || !dia.epítetos) return;
         Object.entries(dia.epítetos).forEach(([divOriginal, lista]) => {
@@ -3734,20 +3659,15 @@ const ordenadas = [...filtradas].sort((a, b) => {
         });
       });
 
-      // Converter em array, com epítetos ordenados e tradução
       const deuses = [];
       mapa.forEach((setEpitetos, divindade) => {
         const epitetos = Array.from(setEpitetos)
-          .map(ep => ({
-            epiteto: ep,
-            traducao: TRADUCOES_EPITETOS[ep] || ''
-          }))
+          .map(ep => ({ epiteto: ep, traducao: TRADUCOES_EPITETOS[ep] || '' }))
           .sort((a, b) => _norm(a.epiteto).localeCompare(_norm(b.epiteto), 'pt'));
         deuses.push({ divindade, epitetos });
       });
 
       deuses.sort((a, b) => _norm(a.divindade).localeCompare(_norm(b.divindade), 'pt'));
-
       GLOSSARIO_CACHE = deuses;
       return deuses;
     }
@@ -3758,46 +3678,53 @@ const ordenadas = [...filtradas].sort((a, b) => {
       return texto.replace(new RegExp(`(${safe})`, 'gi'), '<mark>$1</mark>');
     }
 
-    /* Renderiza o índice de chips de divindades */
-    function renderGlossIndex(todos) {
-      const chipsEl = document.getElementById('glossIndexChips');
-      const countEl = document.getElementById('glossIndexCount');
-      if (!chipsEl) return;
+    /* ---------- Barra "Ir para" do Glossário ---------- */
+    function initGlossJump() {
+      const sel = document.getElementById('glossJumpDeus');
+      const btnGo = document.getElementById('glossJumpGo');
+      const btnAll = document.getElementById('glossJumpAll');
+      if (!sel || !btnGo || !btnAll) return;
 
-      if (countEl) {
-        countEl.textContent = `${todos.length} divindades`;
+      // Popula o select com as divindades (ordem alfabética)
+      function popularSelect() {
+        const todos = buildGlossario();
+        const valorAtual = glossDeusSelecionado || '';
+        sel.innerHTML = `<option value="">— Escolha uma divindade —</option>` +
+          todos.map(d => `<option value="${d.divindade.replace(/"/g, '&quot;')}">${d.divindade}</option>`).join('');
+        sel.value = valorAtual;
       }
 
-      const totalGeral = todos.reduce((acc, d) => acc + d.epitetos.length, 0);
-      const chipAll = `
-        <button class="gloss-chip chip-all ${glossDeusSelecionado === null ? 'active' : ''}"
-                data-deus="">
-          ✦ Todas <span class="chip-count">${totalGeral}</span>
-        </button>`;
+      popularSelect();
 
-      const chipsDeuses = todos.map(d => {
-        const isActive = glossDeusSelecionado === d.divindade;
-        return `
-          <button class="gloss-chip ${isActive ? 'active' : ''}"
-                  data-deus="${d.divindade.replace(/"/g, '&quot;')}">
-            ${d.divindade} <span class="chip-count">${d.epitetos.length}</span>
-          </button>`;
-      }).join('');
+      btnGo.addEventListener('click', () => {
+        const escolha = sel.value;
+        if (!escolha) {
+          // Se nada foi escolhido, não faz nada
+          return;
+        }
+        glossDeusSelecionado = escolha;
+        renderGlossario();
+        const alvo = document.querySelector(`.gloss-deus-block[data-deus="${CSS.escape(escolha)}"]`);
+        if (alvo) {
+          const topo = alvo.getBoundingClientRect().top + window.scrollY - 80;
+          window.scrollTo({ top: topo, behavior: 'smooth' });
+        }
+      });
 
-      chipsEl.innerHTML = chipAll + chipsDeuses;
+      btnAll.addEventListener('click', () => {
+        glossDeusSelecionado = null;
+        sel.value = '';
+        renderGlossario();
+        const listEl = document.getElementById('glossList');
+        if (listEl) {
+          const topo = listEl.getBoundingClientRect().top + window.scrollY - 80;
+          window.scrollTo({ top: topo, behavior: 'smooth' });
+        }
+      });
 
-      chipsEl.querySelectorAll('.gloss-chip').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const valor = btn.dataset.deus;
-          glossDeusSelecionado = valor === '' ? null : valor;
-          // Rolar suavemente até a lista após filtrar
-          renderGlossario();
-          const listEl = document.getElementById('glossList');
-          if (listEl) {
-            const topo = listEl.getBoundingClientRect().top + window.scrollY - 80;
-            window.scrollTo({ top: topo, behavior: 'smooth' });
-          }
-        });
+      // Se o usuário trocar o select, atualiza a variável (sem aplicar ainda)
+      sel.addEventListener('change', () => {
+        // Nada — só aplica ao clicar em "Ir"
       });
     }
 
@@ -3811,9 +3738,11 @@ const ordenadas = [...filtradas].sort((a, b) => {
       const qLow = _norm(q);
 
       const todos = buildGlossario();
-      renderGlossIndex(todos);
 
-      // Aplica filtro de deus selecionado + busca textual
+      // Atualiza o valor do select com o deus selecionado (caso venha por hash/outro caminho)
+      const sel = document.getElementById('glossJumpDeus');
+      if (sel) sel.value = glossDeusSelecionado || '';
+
       let blocos = todos.slice();
 
       if (glossDeusSelecionado !== null) {
@@ -3851,10 +3780,10 @@ const ordenadas = [...filtradas].sort((a, b) => {
         return;
       }
 
-      // Renderização dos cartões
       listEl.innerHTML = blocos.map(b => {
+        const totalNoDeus = todos.find(t => t.divindade === b.divindade).epitetos.length;
         const contagem = b._filtrado
-          ? `${b.epitetos.length} de ${todos.find(t => t.divindade === b.divindade).epitetos.length} epítetos`
+          ? `${b.epitetos.length} de ${totalNoDeus} epítetos`
           : `${b.epitetos.length} epíteto${b.epitetos.length !== 1 ? 's' : ''}`;
 
         const rows = b.epitetos.map(e => `
@@ -3865,7 +3794,7 @@ const ordenadas = [...filtradas].sort((a, b) => {
         `).join('');
 
         return `
-          <div class="gloss-deus-block">
+          <div class="gloss-deus-block" data-deus="${b.divindade.replace(/"/g, '&quot;')}">
             <div class="gloss-deus-header">
               <span class="gloss-deus-name">${destacarTermo(b.divindade, q)}</span>
               <span class="gloss-deus-count">${contagem}</span>
@@ -3887,6 +3816,9 @@ const ordenadas = [...filtradas].sort((a, b) => {
       document.getElementById('glossClearBtn').classList.remove('visible');
       renderGlossario();
     });
+
+    /* Inicializa a barra "Ir para" do glossário */
+    document.addEventListener('DOMContentLoaded', initGlossJump);
     /* ==================================================================
        14) ESTATUTO
        ================================================================== */
