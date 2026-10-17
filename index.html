@@ -1265,17 +1265,12 @@
     <section class="view" id="view-devocional">
       <h2 class="page-title">Devocional Dias Fixos</h2>
 
-      <div class="dev-jump" id="devJumpBar">
+            <div class="dev-jump" id="devJumpBar">
         <label>Ir para:</label>
         <select id="devJumpMonth" aria-label="Mês"></select>
         <select id="devJumpDay" aria-label="Dia"></select>
         <button class="dev-jump-btn" id="devJumpGo">Ir</button>
-        <div class="dev-jump-shortcuts">
-          <button data-jump="noumenia" title="Dia 1 de qualquer mês">☾ Noumenia</button>
-          <button data-jump="deipnon" title="Último dia do mês (Deipnon)">● Deipnon</button>
-        </div>
       </div>
-
       <div class="dev-view-hero">
         <div class="dev-divindade" id="devDivindade" style="display:none;">—</div>
         <div class="dev-day" id="devDayNum">—</div>
@@ -3276,19 +3271,8 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
         if (dayNum >= 1 && dayNum <= MONTHS[mi].days) selDay.value = dayNum;
       }
 
-      btnGo.addEventListener('click', () => {
+           btnGo.addEventListener('click', () => {
         jumpToMonthDay(parseInt(selMonth.value, 10), parseInt(selDay.value, 10));
-      });
-
-      document.querySelectorAll('.dev-jump-shortcuts button').forEach(b => {
-        b.addEventListener('click', () => {
-          const base = new Date();
-          base.setDate(base.getDate() + currentDayOffset);
-          const mi = findMonthIndexForDate(base);
-          const mm = mi < 0 ? 0 : mi;
-          if (b.dataset.jump === 'noumenia') jumpToMonthDay(mm, 1);
-          else if (b.dataset.jump === 'deipnon') jumpToMonthDay(mm, MONTHS[mm].days);
-        });
       });
 
       window._syncDevJump = syncFromCurrent;
