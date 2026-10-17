@@ -1396,13 +1396,10 @@
         <div class="est-search-stats" id="glossSearchStats"></div>
       </div>
 
-      <div class="dev-jump gloss-jump" id="glossJumpBar">
+         <div class="dev-jump gloss-jump" id="glossJumpBar">
         <label>Ir para:</label>
         <select id="glossJumpDeus" aria-label="Divindade"></select>
         <button class="dev-jump-btn" id="glossJumpGo">Ir</button>
-        <div class="dev-jump-shortcuts" style="margin-left:auto;">
-          <button type="button" id="glossJumpAll" title="Mostrar todas as divindades">✦ Todas</button>
-        </div>
       </div>
 
       <div id="glossList" class="gloss-container"></div>
@@ -3682,8 +3679,7 @@ const ordenadas = [...filtradas].sort((a, b) => {
     function initGlossJump() {
       const sel = document.getElementById('glossJumpDeus');
       const btnGo = document.getElementById('glossJumpGo');
-      const btnAll = document.getElementById('glossJumpAll');
-      if (!sel || !btnGo || !btnAll) return;
+            if (!sel || !btnGo || !btnAll) return;
 
       // Popula o select com as divindades (ordem alfabética)
       function popularSelect() {
@@ -3707,17 +3703,6 @@ const ordenadas = [...filtradas].sort((a, b) => {
         const alvo = document.querySelector(`.gloss-deus-block[data-deus="${CSS.escape(escolha)}"]`);
         if (alvo) {
           const topo = alvo.getBoundingClientRect().top + window.scrollY - 80;
-          window.scrollTo({ top: topo, behavior: 'smooth' });
-        }
-      });
-
-      btnAll.addEventListener('click', () => {
-        glossDeusSelecionado = null;
-        sel.value = '';
-        renderGlossario();
-        const listEl = document.getElementById('glossList');
-        if (listEl) {
-          const topo = listEl.getBoundingClientRect().top + window.scrollY - 80;
           window.scrollTo({ top: topo, behavior: 'smooth' });
         }
       });
