@@ -1289,7 +1289,7 @@
       <h2 class="page-title">Glossário de Epítetos</h2>
 
       <div class="circ-intro">
-        <p>Todos os epítetos dos Deuses presentes neste aplicativo, com suas respectivas traduções, em ordem alfabética. Busque por epíteto, tradução ou nome da divindade.</p>
+            <p>Todos os epítetos dos Deuses presentes neste aplicativo, com suas respectivas traduções, organizados por divindade em ordem alfabética. Busque por epíteto, tradução ou nome da divindade.</p>
       </div>
 
       <div class="est-search-wrap">
@@ -1299,7 +1299,7 @@
       </div>
       <div class="est-search-stats" id="glossSearchStats"></div>
 
-      <div id="glossList" class="gloss-list"></div>
+      <div id="glossList" class="gloss-container"></div>
     </section>
 
     <!-- ===================== VIEW: CALENDÁRIO ===================== -->
@@ -3509,37 +3509,51 @@ const ordenadas = [...filtradas].sort((a, b) => {
         /* ==================================================================
        13-bis) GLOSSÁRIO DE EPÍTETOS
        ================================================================== */
+    /* ==================================================================
+       13-bis) GLOSSÁRIO DE EPÍTETOS — agrupado por divindade
+       ================================================================== */
     let GLOSSARIO_CACHE = null;
 
+    /* Normaliza nome para ordenação alfabética (ignora acentos e caixa) */
+    function _norm(s) {
+      return (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+    }
+
+    /* Constrói a lista de divindades, cada uma com seus epítetos + traduções,
+       ambas as listas em ordem alfabética. */
     function buildGlossario() {
       if (GLOSSARIO_CACHE) return GLOSSARIO_CACHE;
 
-      const entries = [];
+      // 1) Mapa divindade -> Set de epítetos
+      const mapa = new Map();
 
-      Object.entries(TRADUCOES_EPITETOS).forEach(([epiteto, traducao]) => {
-        const deuses = new Set();
-
-        Object.values(EPITETOS).forEach(dia => {
-          if (!dia || !dia.epítetos) return;
-          Object.entries(dia.epítetos).forEach(([div, lista]) => {
-            if (Array.isArray(lista) && lista.includes(epiteto)) {
-              deuses.add(div);
-            }
-          });
-        });
-
-        entries.push({
-          epiteto,
-          traducao,
-          deuses: Array.from(deuses).sort((a, b) => a.localeCompare(b, 'pt', { sensitivity: 'base' }))
+      Object.values(EPITETOS).forEach(dia => {
+        if (!dia || !dia.epítetos) return;
+        Object.entries(dia.epítetos).forEach(([div, lista]) => {
+          if (!Array.isArray(lista)) return;
+          if (!mapa.has(div)) mapa.set(div, new Set());
+          const set = mapa.get(div);
+          lista.forEach(ep => set.add(ep));
         });
       });
 
-      // Ordem alfabética, ignorando acentos e maiúsculas
-      entries.sort((a, b) => a.epiteto.localeCompare(b.epiteto, 'pt', { sensitivity: 'base' }));
+      // 2) Converte para array de { divindade, epitetos: [{epiteto, traducao}] }
+      const deuses = [];
+      mapa.forEach((setEpitetos, divindade) => {
+        const epitetos = Array.from(setEpitetos)
+          .map(ep => ({
+            epiteto: ep,
+            traducao: TRADUCOES_EPITETOS[ep] || ''
+          }))
+          .sort((a, b) => _norm(a.epiteto).localeCompare(_norm(b.epiteto), 'pt'));
+        deuses.push({ divindade, epitetos });
+      });
 
-      GLOSSARIO_CACHE = entries;
-      return entries;
+      // 3) Ordena divindades alfabeticamente
+      deuses.sort((a, b) => _norm(a.divindade).localeCompare(_norm(b.divindade), 'pt'));
+
+      GLOSSARIO_CACHE = deuses;
+      return deuses;
     }
 
     function destacarTermo(texto, query) {
@@ -3555,38 +3569,74 @@ const ordenadas = [...filtradas].sort((a, b) => {
       if (!listEl) return;
 
       const q = (searchInput ? searchInput.value : '').trim();
-      const qLow = q.toLowerCase();
+      const qLow = _norm(q);
 
       const todos = buildGlossario();
+      const totalEpitetos = todos.reduce((acc, d) => acc + d.epitetos.length, 0);
 
-      const filtrados = qLow
-        ? todos.filter(item =>
-            item.epiteto.toLowerCase().includes(qLow) ||
-            item.traducao.toLowerCase().includes(qLow) ||
-            item.deuses.some(d => d.toLowerCase().includes(qLow))
-          )
-        : todos;
-
-      if (stats) {
-        stats.textContent = q
-          ? `${filtrados.length} resultado(s) para "${q}" — de ${todos.length} epítetos`
-          : `${todos.length} epítetos no glossário`;
+      // Filtra: mostra a divindade se o nome bater OU se algum epíteto/tradução bater.
+      // Se bater num epíteto/tradução, mostramos APENAS os epítetos que batem.
+      let blocos;
+      if (!qLow) {
+        blocos = todos.map(d => ({
+          divindade: d.divindade,
+          epitetos: d.epitetos,
+          totalNoDeus: d.epitetos.length
+        }));
+      } else {
+        blocos = [];
+        todos.forEach(d => {
+          const deusMatch = _norm(d.divindade).includes(qLow);
+          const epitetosQueBatem = d.epitetos.filter(e =>
+            _norm(e.epiteto).includes(qLow) || _norm(e.traducao).includes(qLow)
+          );
+          if (deusMatch) {
+            // Mostra a divindade inteira (todos os epítetos)
+            blocos.push({ divindade: d.divindade, epitetos: d.epitetos, totalNoDeus: d.epitetos.length });
+          } else if (epitetosQueBatem.length > 0) {
+            // Mostra só os epítetos que batem, mas ainda dentro do bloco do deus
+            blocos.push({ divindade: d.divindade, epitetos: epitetosQueBatem, totalNoDeus: d.epitetos.length });
+          }
+        });
       }
 
-      if (filtrados.length === 0) {
+      // Estatísticas
+      if (stats) {
+        if (!q) {
+          stats.textContent = `${todos.length} divindades · ${totalEpitetos} epítetos no glossário`;
+        } else {
+          const totalMostrados = blocos.reduce((acc, b) => acc + b.epitetos.length, 0);
+          stats.textContent = `${blocos.length} divindade(s) · ${totalMostrados} epíteto(s) encontrado(s) para "${q}"`;
+        }
+      }
+
+      if (blocos.length === 0) {
         listEl.innerHTML = `<div class="gloss-empty">Nenhum epíteto encontrado para "${q}".</div>`;
         return;
       }
 
-      listEl.innerHTML = filtrados.map(item => `
-        <div class="gloss-item">
-          <div class="gloss-epiteto">${destacarTermo(item.epiteto, q)}</div>
-          <div class="gloss-traducao">${destacarTermo(item.traducao, q)}</div>
-          ${item.deuses.length
-            ? `<div class="gloss-deuses">${item.deuses.map(d => `<span class="gloss-deus-tag">${destacarTermo(d, q)}</span>`).join('')}</div>`
-            : ''}
-        </div>
-      `).join('');
+      // Renderiza
+      listEl.innerHTML = blocos.map(b => {
+        const contagem = b.epitetos.length === b.totalNoDeus
+          ? `${b.totalNoDeus} epíteto${b.totalNoDeus !== 1 ? 's' : ''}`
+          : `${b.epitetos.length} de ${b.totalNoDeus} epítetos`;
+
+        const rows = b.epitetos.map(e => `
+          <div class="gloss-epiteto-row">
+            <span class="ep-nome">${destacarTermo(e.epiteto, q)}</span><span class="ep-trad">${destacarTermo(e.traducao, q)}</span>
+          </div>
+        `).join('');
+
+        return `
+          <div class="gloss-deus-block">
+            <div class="gloss-deus-header">
+              <span class="gloss-deus-name">${destacarTermo(b.divindade, q)}</span>
+              <span class="gloss-deus-count">${contagem}</span>
+            </div>
+            <div class="gloss-deus-epitetos">${rows}</div>
+          </div>
+        `;
+      }).join('');
     }
 
     // Listeners do glossário
@@ -3600,7 +3650,6 @@ const ordenadas = [...filtradas].sort((a, b) => {
       document.getElementById('glossClearBtn').classList.remove('visible');
       renderGlossario();
     });
-
     /* ==================================================================
        14) ESTATUTO
        ================================================================== */
