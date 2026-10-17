@@ -1382,31 +1382,30 @@
         <!-- ===================== VIEW: GLOSSÁRIO ===================== -->
         <!-- ===================== VIEW: GLOSSÁRIO ===================== -->
         <!-- ===================== VIEW: GLOSSÁRIO ===================== -->
-    <section class="view" id="view-glossario">
+        <section class="view" id="view-glossario">
       <h2 class="page-title">Glossário de Epítetos</h2>
 
       <div class="circ-intro">
-        <p>Todos os epítetos dos Deuses presentes neste aplicativo, com suas respectivas traduções, agrupados por divindade em ordem alfabética. Use a barra abaixo para escolher um Deus ou busque por epíteto, tradução ou nome da divindade.</p>
+        <p>Todos os epítetos ...</p>
       </div>
 
-      <div class="gloss-search-row">
-        <div class="est-search-wrap">
-          <span class="search-icon">🔍</span>
-          <input type="text" id="glossSearchInput" placeholder="Buscar epíteto, tradução ou divindade…" aria-label="Buscar no glossário">
-          <button class="clear-btn" id="glossClearBtn" aria-label="Limpar busca">✕</button>
-        </div>
-        <div class="est-search-stats" id="glossSearchStats"></div>
-      </div>
-
-         <div class="dev-jump gloss-jump" id="glossJumpBar">
+      <div class="dev-jump gloss-jump" id="glossJumpBar">   <!-- ← "IR PARA" AGORA VEM PRIMEIRO -->
         <label>Ir para:</label>
         <select id="glossJumpDeus" aria-label="Divindade"></select>
         <button class="dev-jump-btn" id="glossJumpGo">Ir</button>
       </div>
 
+      <div class="gloss-search-row">          <!-- ← BARRA DE PESQUISA AGORA VEM DEPOIS -->
+        <div class="est-search-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="glossSearchInput" ...>
+          <button class="clear-btn" id="glossClearBtn" ...>✕</button>
+        </div>
+        <div class="est-search-stats" id="glossSearchStats"></div>
+      </div>
+
       <div id="glossList" class="gloss-container"></div>
     </section>
-
     <!-- ===================== VIEW: CALENDÁRIO ===================== -->
     <section class="view" id="view-calendario">
       <h2 class="page-title">Calendário Sagrado</h2>
