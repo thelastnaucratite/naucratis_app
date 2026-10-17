@@ -1154,6 +1154,47 @@
       padding: 2.5rem 0; font-style: italic;
       grid-column: 1 / -1;
     }
+        /* ===== FOOTER ===== */
+    .app-footer {
+      margin-top: 2.2rem;
+      padding: 1.6rem 1rem 1rem;
+      text-align: center;
+      font-family: var(--font-sans);
+      color: var(--text-muted);
+      border-top: 1px solid var(--cor);
+      opacity: 0.85;
+    }
+    .app-footer::before {
+      content: "";
+      display: block;
+      width: 42px;
+      height: 2px;
+      margin: 0 auto 1rem;
+      background: var(--cor);
+      border-radius: 2px;
+      opacity: 0.7;
+    }
+    .app-footer .footer-text {
+      display: block;
+      font-size: 0.72rem;
+      line-height: 1.55;
+      font-style: italic;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: var(--text-muted);
+      max-width: 540px;
+      margin: 0 auto;
+    }
+    .app-footer .footer-text span {
+      font-weight: 700;
+      font-style: normal;
+      color: var(--title-color);
+      letter-spacing: 0.03em;
+    }
+    @media (max-width: 700px) {
+      .app-footer { margin-top: 1.6rem; padding: 1.2rem 0.8rem 0.8rem; }
+      .app-footer .footer-text { font-size: 0.68rem; }
+    }
 
     /* ===== BARRA DE NAVEGAÇÃO RÁPIDA (DEVOCIONAL) ===== */
     .dev-jump {
@@ -1548,7 +1589,7 @@
         </div>
         <iframe id="circIframe" class="circ-iframe" title="Leitor de circular"></iframe>
       </div>
-    </section>
+    </section> 
 
     <footer class="app-footer">
       <span>O Conselho de Dirigentes e as lideranças naucratitas me ofertam a Zeus Xênios e Afrodite Pandemos</span>
