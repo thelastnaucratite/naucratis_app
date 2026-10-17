@@ -3679,8 +3679,7 @@ const ordenadas = [...filtradas].sort((a, b) => {
     function initGlossJump() {
       const sel = document.getElementById('glossJumpDeus');
       const btnGo = document.getElementById('glossJumpGo');
-            if (!sel || !btnGo || !btnAll) return;
-
+      if (!sel || !btnGo) return;
       // Popula o select com as divindades (ordem alfabética)
       function popularSelect() {
         const todos = buildGlossario();
@@ -3802,9 +3801,7 @@ const ordenadas = [...filtradas].sort((a, b) => {
       renderGlossario();
     });
 
-    /* Inicializa a barra "Ir para" do glossário */
-    document.addEventListener('DOMContentLoaded', initGlossJump);
-    /* ==================================================================
+    
        14) ESTATUTO
        ================================================================== */
     let currentChapterId = 'preambulo';
@@ -3913,6 +3910,7 @@ const ordenadas = [...filtradas].sort((a, b) => {
       initDevJump();
       renderCalendario();
       renderCirculares();
+      initGlossJump(); 
       renderGlossario();
 
       if (location.hash) {
