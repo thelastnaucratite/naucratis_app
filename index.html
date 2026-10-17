@@ -1386,7 +1386,7 @@
       <h2 class="page-title">Glossário de Epítetos</h2>
 
       <div class="circ-intro">
-        <p>Todos os epítetos ...</p>
+        <p>Todos os epítetos dos Deuses presentes neste aplicativo, com suas respectivas traduções, agrupados por divindade em ordem alfabética. Use a barra abaixo para escolher um Deus ou busque por epíteto, tradução ou nome da divindade</p>
       </div>
 
       <div class="dev-jump gloss-jump" id="glossJumpBar">   <!-- ← "IR PARA" AGORA VEM PRIMEIRO -->
@@ -1395,15 +1395,14 @@
         <button class="dev-jump-btn" id="glossJumpGo">Ir</button>
       </div>
 
-      <div class="gloss-search-row">          <!-- ← BARRA DE PESQUISA AGORA VEM DEPOIS -->
+            <div class="gloss-search-row">
         <div class="est-search-wrap">
           <span class="search-icon">🔍</span>
-          <input type="text" id="glossSearchInput" ...>
-          <button class="clear-btn" id="glossClearBtn" ...>✕</button>
+          <input type="text" id="glossSearchInput" placeholder="Buscar epíteto, tradução ou divindade…" aria-label="Buscar no glossário">
+          <button class="clear-btn" id="glossClearBtn" aria-label="Limpar busca">✕</button>
         </div>
         <div class="est-search-stats" id="glossSearchStats"></div>
       </div>
-
       <div id="glossList" class="gloss-container"></div>
     </section>
     <!-- ===================== VIEW: CALENDÁRIO ===================== -->
