@@ -375,8 +375,8 @@
     .devotional-card .dev-message p:last-child { margin-bottom: 0; }
 
     .home-shortcuts {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem; margin-bottom: 1.5rem;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem; margin-top: 0.5rem; margin-bottom: 1.5rem;
     }
     .shortcut {
       background: var(--card-bg); border: 1px solid var(--card-border);
@@ -1214,7 +1214,7 @@
     </header>
 
     <!-- ===================== VIEW: HOME ===================== -->
-    <section class="view active" id="view-home">
+      <section class="view active" id="view-home">
       <div class="home-hero">
         <div class="greeting">Saudações, Naucratita!</div>
         <h2 id="homeGreeting">Bem-vindo à Náucratis</h2>
@@ -1228,6 +1228,11 @@
           <p>Carregando o devocional do dia...</p>
         </div>
         <button class="action-btn" id="homeDevOpen" style="margin-top:0.8rem;">Ver devocional completo →</button>
+      </div>
+
+      <div class="home-upcoming">
+        <h3>Próximos Festivais</h3>
+        <div id="homeUpcoming"></div>
       </div>
 
       <div class="home-shortcuts">
@@ -1251,13 +1256,6 @@
           <div class="sh-title">Circulares</div>
           <div class="sh-desc">Comunicados oficiais</div>
         </div>
-      </div>
-
-      <div id="homeEpitetoSlot"></div>
-
-      <div class="home-upcoming">
-        <h3>Próximos Festivais</h3>
-        <div id="homeUpcoming"></div>
       </div>
     </section>
 
@@ -3022,14 +3020,12 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
       const todayDate = document.getElementById('homeTodayDate');
       const devTitle = document.getElementById('homeDevTitle');
       const devMsg = document.getElementById('homeDevMessage');
-      const epSlot = document.getElementById('homeEpitetoSlot');
 
-      if (!info) {
+        if (!info) {
         greeting.textContent = 'Bem-vindo à Náucratis';
         todayDate.textContent = fmtGregFull(new Date());
         devTitle.textContent = '—';
         devMsg.innerHTML = '<p>Nenhuma informação disponível para hoje.</p>';
-        epSlot.innerHTML = '';
         return;
       }
       const m = MONTHS[info.monthIndex];
@@ -3050,19 +3046,7 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
       }
       devTitle.textContent = titulo;
       devMsg.innerHTML = `<p>${resumoMsg}</p>`;
-
-           const temEpitetosFixosHome = chaveDev && DIAS_EPITETOS_FIXOS.includes(chaveDev);
-      if (chaveDev && DEVOCIONARIO[chaveDev].divindades.length > 0 && !temEpitetosFixosHome) {
-        const ep = epitetosDoMes(chaveDev, DEVOCIONARIO[chaveDev].divindades, info.dt);
-        if (Object.keys(ep).length > 0) {
-          const linhas = Object.entries(ep).map(([d, e]) => `<p><strong>${d}:</strong> <span class="highlight" style="background:var(--highlight-bg);padding:0.1rem 0.35rem;border-radius:4px;font-weight:600;color:var(--highlight-text);">${formatarEpiteto(e)}</span></p>`).join('');
-          epSlot.innerHTML = `<div class="home-upcoming">
-            <h3>Epítetos de Hoje</h3>
-            <div style="font-family:var(--font-sans);font-size:1rem;line-height:1.6;">${linhas}</div>
-          </div>`;
-        } else epSlot.innerHTML = '';
-      } else epSlot.innerHTML = '';;
-
+      
       const allFests = [];
       MONTHS.forEach((mm, mi) => {
         Object.keys(mm.festivals).forEach(dStr => {
