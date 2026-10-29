@@ -5,7 +5,7 @@
   "lang": "pt-BR",
   "start_url": "/",
   "scope": "/",
-    "display": "minimal-ui",
+"display": "standalone",
   "orientation": "portrait",
   "theme_color": "#b03624",
   "background_color": "#b03624",
