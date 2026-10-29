@@ -4018,14 +4018,22 @@ const ordenadas = [...filtradas].sort((a, b) => {
     }
     init();
 
-    // ===== Esconde a splash screen após o app estar renderizado =====
+    /    // ===== Esconde a splash screen após o app estar renderizado =====
     (function esconderSplash() {
       const splash = document.getElementById('splash-screen');
       if (!splash) return;
+      // Tempo mínimo de exibição da splash (em ms). Ajuste como quiser:
+      const TEMPO_MINIMO_SPLASH = 3000;   // 3 segundos
+      const TEMPO_FADE = 700;             // 0,7 s de fade-out
+
+      const inicio = performance.now();
+      const decorrido = inicio - (window._splashStart || inicio);
+      const espera = Math.max(0, TEMPO_MINIMO_SPLASH - decorrido);
+
       setTimeout(() => {
         splash.classList.add('hidden');
-        setTimeout(() => { if (splash.parentNode) splash.remove(); }, 700);
-      }, 700);
+        setTimeout(() => { if (splash.parentNode) splash.remove(); }, TEMPO_FADE);
+      }, espera);
     })();
 
     document.addEventListener('keydown', (e) => {
