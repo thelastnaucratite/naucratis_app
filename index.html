@@ -4018,22 +4018,30 @@ const ordenadas = [...filtradas].sort((a, b) => {
     }
     init();
 
-    /    // ===== Esconde a splash screen após o app estar renderizado =====
+        // ===== Esconde a splash screen após o app estar renderizado =====
     (function esconderSplash() {
       const splash = document.getElementById('splash-screen');
       if (!splash) return;
-      // Tempo mínimo de exibição da splash (em ms). Ajuste como quiser:
-      const TEMPO_MINIMO_SPLASH = 3000;   // 3 segundos
-      const TEMPO_FADE = 700;             // 0,7 s de fade-out
 
-      const inicio = performance.now();
-      const decorrido = inicio - (window._splashStart || inicio);
-      const espera = Math.max(0, TEMPO_MINIMO_SPLASH - decorrido);
+      const TEMPO_MINIMO_SPLASH = 3000;   // tempo total visível (ms)
+      const TEMPO_FADE = 700;             // fade-out (ms)
 
-      setTimeout(() => {
+      if (!window._splashStart) window._splashStart = performance.now();
+
+      function esconderAgora() {
+        if (!splash || !splash.parentNode) return;
         splash.classList.add('hidden');
-        setTimeout(() => { if (splash.parentNode) splash.remove(); }, TEMPO_FADE);
-      }, espera);
+        setTimeout(() => { if (splash && splash.parentNode) splash.remove(); }, TEMPO_FADE + 100);
+      }
+
+      function agendar() {
+        const decorrido = performance.now() - window._splashStart;
+        const espera = Math.max(0, TEMPO_MINIMO_SPLASH - decorrido);
+        setTimeout(esconderAgora, espera);
+      }
+
+      agendar();
+      setTimeout(esconderAgora, 6000);
     })();
 
     document.addEventListener('keydown', (e) => {
