@@ -14,7 +14,7 @@
 
   <!-- ===== MANIFESTO PWA ===== -->
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#5a1a02">
+  <meta name="theme-color" content="#b03624">
   <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 
@@ -1275,9 +1275,63 @@
       .dev-jump select { flex: 1; min-width: 0; }
       .dev-jump-shortcuts { width: 100%; margin-left: 0; justify-content: space-between; }
     }
+
+    /* ===== SPLASH SCREEN CUSTOMIZADA ===== */
+    #splash-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background: #b03624;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.6s ease;
+    }
+    #splash-screen.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .splash-inner {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.1rem;
+      padding: 0 1.5rem;
+    }
+    .splash-logo {
+      width: 110px;
+      height: 110px;
+      border-radius: 22%;
+      animation: splashPulse 1.6s ease-in-out infinite;
+    }
+    .splash-message {
+      font-family: 'Aboreto', 'Cinzel', serif;
+      font-size: 1.15rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #ffffff;
+      opacity: 0.95;
+    }
+    @keyframes splashPulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.06); opacity: 0.9; }
+    }
+    @media (max-width: 480px) {
+      .splash-logo { width: 88px; height: 88px; }
+      .splash-message { font-size: 0.95rem; letter-spacing: 0.1em; }
+    }
   </style>
 </head>
 <body>
+  <!-- ===== SPLASH SCREEN CUSTOMIZADA ===== -->
+  <div id="splash-screen">
+    <div class="splash-inner">
+      <img src="/web-app-manifest-192x192.png" alt="Náucratis" class="splash-logo" onerror="this.style.display='none'">
+      <div class="splash-message">Boas-vindas à Náucratis!</div>
+    </div>
+  </div>
+
   <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
     <svg viewBox="0 0 24 24">
       <rect x="2" y="5" width="20" height="2" rx="1" />
@@ -1420,8 +1474,6 @@
         <button class="dev-day-btn" id="devNextDay">Próximo dia →</button>
       </div>
     </section>
-        <!-- ===================== VIEW: GLOSSÁRIO ===================== -->
-        <!-- ===================== VIEW: GLOSSÁRIO ===================== -->
         <!-- ===================== VIEW: GLOSSÁRIO ===================== -->
         <section class="view" id="view-glossario">
       <h2 class="page-title">Glossário de Epítetos</h2>
@@ -3965,6 +4017,16 @@ const ordenadas = [...filtradas].sort((a, b) => {
       setInterval(() => { if (currentView === 'devocional') renderDevocional(); }, 60 * 60 * 1000);
     }
     init();
+
+    // ===== Esconde a splash screen após o app estar renderizado =====
+    (function esconderSplash() {
+      const splash = document.getElementById('splash-screen');
+      if (!splash) return;
+      setTimeout(() => {
+        splash.classList.add('hidden');
+        setTimeout(() => { if (splash.parentNode) splash.remove(); }, 700);
+      }, 700);
+    })();
 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
