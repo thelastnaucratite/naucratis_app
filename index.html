@@ -3089,14 +3089,28 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
       if (window.innerWidth <= 700) toggleMenu(false);
     });
 
-    document.querySelectorAll('.tema-botao').forEach(btn => {
+      document.querySelectorAll('.tema-botao').forEach(btn => {
       btn.addEventListener('click', () => setTema(btn.dataset.tema));
     });
+
+    /* ===== CORES DAS BARRAS DO SISTEMA POR TEMA ===== */
+    const CORES_TEMA = {
+      ceramica:  '#5a1a02',
+      nilo:      '#1e4487',
+      deserto:   '#7a4f13',
+      vegetacao: '#2f4413'
+    };
+
     function setTema(tema) {
       document.body.classList.remove('tema-ceramica', 'tema-nilo', 'tema-deserto', 'tema-vegetacao');
       document.body.classList.add(`tema-${tema}`);
       document.querySelectorAll('.tema-botao').forEach(b => b.classList.toggle('ativo', b.dataset.tema === tema));
       localStorage.setItem('tema-naucratis-app', tema);
+
+      // Atualiza a cor da barra de status e da barra de navegação do sistema
+      const cor = CORES_TEMA[tema] || CORES_TEMA.ceramica;
+      const meta = document.querySelector('meta[name="theme-color"]');
+      if (meta) meta.setAttribute('content', cor);
     }
     const temaSalvo = localStorage.getItem('tema-naucratis-app') || 'ceramica';
     setTema(temaSalvo);
