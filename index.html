@@ -3359,7 +3359,7 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
         Object.entries(substitutos).forEach(([div, ep]) => {
           out = out.split(`${div} [epíteto do mês]`).join(`${div} ${formatarEpiteto(ep)}`);
         });
-       out = out.replace(/\[DIVINDADE DE MAIOR KHARIS\]/g, '<strong>[NOME DA DIVINDADE DE SUA MAIOR DEVIAÇÃO]</strong>');
+       out = out.replace(/\[DIVINDADE DE MAIOR KHARIS\]/g, '<strong>[NOME DA DIVINDADE DE SUA MAIOR DEVOÇÃO]</strong>');
         out = out.replace(/\[epíteto do mês\]/gi, '');
         return out;
       }
