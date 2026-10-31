@@ -1,15 +1,14 @@
 {
   "name": "Náucratis",
   "short_name": "Náucratis",
-  "description": "Comunidade Politeísta Naucratita — devocionais, calendário sagrado, estatuto e circulares.",
+  "description": "Comunidade Politeísta Naucratita",
   "lang": "pt-BR",
-  "dir": "ltr",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
-  "theme_color": "#b03624",
-  "background_color": "#b03624",
+  "theme_color": "#9b2f03",
+  "background_color": "#9b2f03",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
