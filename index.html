@@ -2071,9 +2071,9 @@ Dê-me toda a graça, toda a realização, porque tu é aquele que traz o bem, o
           preparacao: "Se possível, tome um banho; senão, apenas lave o rosto e as mãos. Acenda vela e incenso. Respire fundo e, em silêncio, concentre-se no rito.",
           abertura: "Erga as mãos à meia altura e diga: Khairete, Theoï! Khaire Agathos Daimon! Faça um breve silêncio ritualístico; em seguida, entoe um canto invocando Héstia.",
           libacaoPassos: [
-            "1ª libação — Héstia Polyolbos e Agathos Daimon: \"Ó Héstia Polyolbos, senhora do lar e da harmonia, e ó Agathos Daimon, recebam esta libação.\"",
-            "2ª libação — Patronos da comunidade e divindade de maior kharis do naucratita: \"Ó Zeus Xênios e Afrodite Pandemos, patronos de Náucratis, ó [DIVINDADE DE MAIOR KHARIS], a vós esta libação.\"",
-            "3ª libação — Zeus Soter / Zeus Meilichios, Hígia e Deuses do lar: \"Ó Zeus Soter e Meilichios, ó Hígia e Deuses do lar, recebam esta libação.\""
+           "1ª libação — Héstia Polyolbos e Agathos Daimon: \"Ó Héstia Polyolbos, senhora do lar e da harmonia, e ó Agathos Daimon, recebam esta libação.\"",
+           "2ª libação — Patronos da comunidade e divindade de maior kharis do naucratita: \"Ó Zeus Xênios e Afrodite Pandemos, patronos de Náucratis, e ó [DIVINDADE DE MAIOR KHARIS], a vós esta libação.\""
+           "3ª libação — Zeus Soter / Zeus Meilichios, Hígia e Deuses do lar: \"Ó Zeus Soter e Meilichios, ó Hígia e Deuses do lar, recebam esta libação.\""
           ],
           oferenda: "Ofereça aos deuses os alimentos separados para tal finalidade. Diga: \"Recebam, ó bem-aventurados imortais, estas oferendas que lhes faço de coração\".",
           prece: "Faça uma breve prece ao deus honrado no dia.",
@@ -2470,7 +2470,7 @@ Dá-nos hoje a sabedoria e o caminho da bela vida.`,
           abertura: "Erga as mãos à meia altura e diga: Khairete, Theoï! Khaire Patronos naucratitas! Faça um breve silêncio ritualístico; em seguida, entoe um canto invocando Héstia.",
           libacaoPassos: [
             "1ª libação — Héstia Polyolbos e Patronos naucratitas (Afrodite Pandemos e Zeus Xênios): \"Ó Héstia Polyolbos, senhora do lar e da harmonia, ó Patronos naucratitas, recebam esta libação.\"",
-            "2ª libação — divindade de maior kharis do naucratita: \"Ó [DIVINDADE DE MAIOR KHARIS], a ti esta libação.\"",
+            "2ª libação — divindade de maior kharis do naucratita: \"E a ti, ó [DIVINDADE DE MAIOR KHARIS], esta libação.\""
             "3ª libação — Zeus Soter / Zeus Meilichios, Hígia e Deuses do lar: \"Ó Zeus Soter e Meilichios, ó Hígia e Deuses do lar, recebam esta libação.\""
           ],
           oferenda: "Ofereça aos deuses os alimentos separados para tal finalidade. Diga: \"Recebam, ó bem-aventurados imortais, estas oferendas que lhes faço de coração\".",
@@ -3359,7 +3359,7 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
         Object.entries(substitutos).forEach(([div, ep]) => {
           out = out.split(`${div} [epíteto do mês]`).join(`${div} ${formatarEpiteto(ep)}`);
         });
-        out = out.replace(/\[DIVINDADE DE MAIOR KHARIS\]/g, 'a divindade de sua maior devoção');
+       out = out.replace(/\[DIVINDADE DE MAIOR KHARIS\]/g, '<strong>[NOME DA DIVINDADE DE SUA MAIOR DEVIAÇÃO]</strong>');
         out = out.replace(/\[epíteto do mês\]/gi, '');
         return out;
       }
