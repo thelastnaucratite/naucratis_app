@@ -3255,7 +3255,13 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
         greeting.textContent = 'Bem-vindo à Náucratis';
         todayDate.textContent = fmtGregFull(new Date());
         devTitle.textContent = '—';
-        devMsg.innerHTML = '<p>Nenhuma informação disponível para hoje.</p>';
+        const inicioAno = new Date(MONTHS[0].start[0], MONTHS[0].start[1] - 1, MONTHS[0].start[2]);
+        const hoje = stripTime(new Date());
+        if (hoje < inicioAno) {
+          devMsg.innerHTML = `<p>O Ano II do calendário sagrado começa em <strong>${fmtGregFull(inicioAno)}</strong> (Heliogenneion 1). Até lá, explore o calendário e o devocional pelos atalhos abaixo.</p>`;
+        } else {
+          devMsg.innerHTML = `<p>Nenhuma informação disponível para hoje.</p>`;
+        }
         return;
       }
       const m = MONTHS[info.monthIndex];
@@ -3324,16 +3330,33 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
         elDay.textContent = '—';
         elMonth.textContent = 'Fora do calendário';
         elMoon.textContent = '—';
-        elContent.innerHTML = '<div class="dev-section"><div class="dev-text"><p>Este dia está fora do período do calendário sagrado.</p></div></div>';
         const elDivHide = document.getElementById('devDivindade');
         if (elDivHide) elDivHide.style.display = 'none';
+
+        const hoje = stripTime(new Date());
+        const inicioAno = new Date(MONTHS[0].start[0], MONTHS[0].start[1] - 1, MONTHS[0].start[2]);
+        const ultimoMesIdx = MONTHS.length - 1;
+        const fimAno = addDays(MONTHS[ultimoMesIdx].start[0], MONTHS[ultimoMesIdx].start[1], MONTHS[ultimoMesIdx].start[2], MONTHS[ultimoMesIdx].days - 1);
+
+        let extra = '';
+        if (hoje < inicioAno) {
+          const dias = Math.round((inicioAno - hoje) / (1000 * 60 * 60 * 24));
+          extra = `<p style="font-style:italic;">O Ano II do calendário sagrado começa em <strong>${fmtGregFull(inicioAno)}</strong> (Heliogenneion 1) — faltam ${dias} dia(s).</p>
+                   <p><button class="dev-jump-btn" onclick="jumpToMonthDay(0,1)" style="margin-top:0.6rem;">📖 Abrir Heliogenneion, dia 1</button></p>`;
+        } else if (hoje > fimAno) {
+          extra = `<p style="font-style:italic;">O Ano II do calendário sagrado encerrou-se em <strong>${fmtGregFull(fimAno)}</strong>.</p>
+                   <p><button class="dev-jump-btn" onclick="jumpToMonthDay(0,1)" style="margin-top:0.6rem;">📖 Revisitar Heliogenneion, dia 1</button></p>`;
+        }
+
+        elContent.innerHTML = `<div class="dev-section"><h3>Fora do Calendário</h3>
+          <div class="dev-text"><p>Este dia está fora do período do calendário sagrado.</p>${extra}</div></div>`;
         if (window._syncDevJump) window._syncDevJump();
         return;
       }
 
       const m = MONTHS[targetMonth];
       const startDt = new Date(m.start[0], m.start[1] - 1, m.start[2]);
-      const dayDiff = Math.floor((stripDate(baseDate) - startDt) / (1000 * 60 * 60 * 24));
+      const dayDiff = Math.floor((stripTime(baseDate) - startDt) / (1000 * 60 * 60 * 24));
       const dayNum = dayDiff + 1;
       const di = dayInfo(targetMonth, dayNum);
 
@@ -3444,6 +3467,7 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
     function jumpToMonthDay(monthIdx, dayNum) {
       switchView('devocional', { monthIdx: monthIdx, dayNum: dayNum });
     }
+    window.jumpToMonthDay = jumpToMonthDay;
 
     function initDevJump() {
       const selMonth = document.getElementById('devJumpMonth');
@@ -3477,7 +3501,7 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
         selMonth.value = mi;
         updateDays();
         const start = new Date(MONTHS[mi].start[0], MONTHS[mi].start[1] - 1, MONTHS[mi].start[2]);
-        const dayNum = Math.round((stripDate(base) - start) / (1000 * 60 * 60 * 24)) + 1;
+        const dayNum = Math.round((stripTime(base) - start) / (1000 * 60 * 60 * 24)) + 1;
         if (dayNum >= 1 && dayNum <= MONTHS[mi].days) selDay.value = dayNum;
       }
 
@@ -3531,7 +3555,7 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
       const progressBar = document.getElementById('calProgressBar');
       const progressText = document.getElementById('calProgressText');
       if (todayIdx === calActiveMonth) {
-        const dayOfMonth = Math.floor((stripDate(today) - startDt) / (1000 * 60 * 60 * 24)) + 1;
+        const dayOfMonth = Math.floor((stripTime(today) - startDt) / (1000 * 60 * 60 * 24)) + 1;
         const progress = Math.min(100, Math.round((dayOfMonth / m.days) * 100));
         progressBar.style.width = progress + '%';
         progressText.textContent = progress + '%';
@@ -3824,8 +3848,6 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
           }
         }
       });
-
-      sel.addEventListener('change', () => {});
     }
 
     function renderGlossario() {
