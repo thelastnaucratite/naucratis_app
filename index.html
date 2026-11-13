@@ -16,7 +16,7 @@
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#9b2f03">
   <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
 
   <!-- Fontes -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1764,7 +1764,7 @@
           1:"Prytaneia — Ano Novo Naucratita · Héstia Prytanites",
           12:"Heliogenna — Solstício de Verão · Apolo e Hélio"
         } },
-      { name:"Teleos", tag:"a plenitude do ano", start:[2027,1,9], days:29, icon:"rings",
+      { name:"Teleos", tag:"a plenitude do ano", start:[2027,1,9], days:30, icon:"rings",
         festivals:{ 13:"Teleia — Hera Teleia" } },
       { name:"Rhabinthios", tag:"o renovar da terra", start:[2027,2,8], days:30, icon:"pomegranate",
         festivals:{
@@ -3317,22 +3317,23 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
       const targetMonth = findMonthIndexForDate(baseDate);
       const elDay = document.getElementById('devDayNum');
       const elMonth = document.getElementById('devMonthName');
-      const elGreg = document.getElementById('devGregDate');
       const elMoon = document.getElementById('devMoonPhase');
       const elContent = document.getElementById('devContent');
 
       if (targetMonth < 0) {
         elDay.textContent = '—';
         elMonth.textContent = 'Fora do calendário';
-        elGreg.textContent = fmtGregFull(baseDate);
         elMoon.textContent = '—';
         elContent.innerHTML = '<div class="dev-section"><div class="dev-text"><p>Este dia está fora do período do calendário sagrado.</p></div></div>';
+        const elDivHide = document.getElementById('devDivindade');
+        if (elDivHide) elDivHide.style.display = 'none';
+        if (window._syncDevJump) window._syncDevJump();
         return;
       }
 
       const m = MONTHS[targetMonth];
       const startDt = new Date(m.start[0], m.start[1] - 1, m.start[2]);
-      const dayDiff = Math.floor((stripTime(baseDate) - startDt) / (1000 * 60 * 60 * 24));
+      const dayDiff = Math.floor((stripDate(baseDate) - startDt) / (1000 * 60 * 60 * 24));
       const dayNum = dayDiff + 1;
       const di = dayInfo(targetMonth, dayNum);
 
@@ -3476,7 +3477,7 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
         selMonth.value = mi;
         updateDays();
         const start = new Date(MONTHS[mi].start[0], MONTHS[mi].start[1] - 1, MONTHS[mi].start[2]);
-        const dayNum = Math.round((stripTime(base) - start) / (1000 * 60 * 60 * 24)) + 1;
+        const dayNum = Math.round((stripDate(base) - start) / (1000 * 60 * 60 * 24)) + 1;
         if (dayNum >= 1 && dayNum <= MONTHS[mi].days) selDay.value = dayNum;
       }
 
@@ -3530,7 +3531,7 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
       const progressBar = document.getElementById('calProgressBar');
       const progressText = document.getElementById('calProgressText');
       if (todayIdx === calActiveMonth) {
-        const dayOfMonth = Math.floor((stripTime(today) - startDt) / (1000 * 60 * 60 * 24)) + 1;
+        const dayOfMonth = Math.floor((stripDate(today) - startDt) / (1000 * 60 * 60 * 24)) + 1;
         const progress = Math.min(100, Math.round((dayOfMonth / m.days) * 100));
         progressBar.style.width = progress + '%';
         progressText.textContent = progress + '%';
@@ -3813,13 +3814,14 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
 
       btnGo.addEventListener('click', () => {
         const escolha = sel.value;
-        if (!escolha) return;
-        glossDeusSelecionado = escolha;
+        glossDeusSelecionado = escolha || null;
         renderGlossario();
-        const alvo = document.querySelector(`.gloss-deus-block[data-deus="${CSS.escape(escolha)}"]`);
-        if (alvo) {
-          const topo = alvo.getBoundingClientRect().top + window.scrollY - 80;
-          window.scrollTo({ top: topo, behavior: 'smooth' });
+        if (escolha) {
+          const alvo = document.querySelector(`.gloss-deus-block[data-deus="${CSS.escape(escolha)}"]`);
+          if (alvo) {
+            const topo = alvo.getBoundingClientRect().top + window.scrollY - 80;
+            window.scrollTo({ top: topo, behavior: 'smooth' });
+          }
         }
       });
 
