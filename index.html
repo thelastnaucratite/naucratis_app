@@ -111,9 +111,9 @@
      /* ===== BOTÃO HOME FIXO — ABAIXO DO MENU ===== */
     .home-toggle {
       position: fixed;
-      top: 4.5rem;         /* fica logo abaixo do hamburger (que ocupa ~1rem + 44px) */
-      left: 1rem;          /* alinhado à esquerda, igual ao hamburger */
-      right: auto;         /* desliga o alinhamento à direita */
+      top: 4.5rem;
+      left: 1rem;
+      right: auto;
       z-index: 1000;
       background: var(--sidebar-bg);
       border: 1px solid var(--sidebar-border);
@@ -142,10 +142,9 @@
       display: block;
     }
 
-    /* Ajustes para celular */
     @media (max-width: 700px) {
       .home-toggle {
-        top: 3.8rem;     /* um pouco mais próximo do hamburger no mobile */
+        top: 3.8rem;
         left: 0.8rem;
         width: 40px;
         height: 40px;
@@ -375,8 +374,8 @@
     .devotional-card .dev-message p:last-child { margin-bottom: 0; }
 
     .home-shortcuts {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem; margin-top: 0.5rem; margin-bottom: 1.5rem;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem; margin-top: 0.5rem; margin-bottom: 1.5rem;
     }
     .shortcut {
       background: var(--card-bg); border: 1px solid var(--card-border);
@@ -688,10 +687,9 @@
       letter-spacing: 3px; text-transform: uppercase;
       color: var(--cor); opacity: 0.85;
     }
-    /* Nome da(s) divindade(s) — em destaque, ACIMA do numeral do dia */
     .dev-view-hero .dev-divindade {
       font-family: var(--font-serif);
-      font-size: 1.85rem;          /* maior que o numeral do dia */
+      font-size: 1.85rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--title-color);
@@ -701,8 +699,6 @@
       word-wrap: break-word;
       overflow-wrap: break-word;
     }
-
-    /* Fase da lua — sutil, discreta */
     .dev-view-hero .dev-moon {
       font-family: var(--font-sans);
       font-size: 0.78rem;
@@ -742,7 +738,6 @@
     }
     .dev-section .dev-text ol li { margin: 0.4rem 0; }
 
-    /* ===== ÁREA DE ROLAGEM PARA HINOS LONGOS ===== */
     .dev-hino-scroll {
       max-height: 420px;
       overflow-y: auto;
@@ -789,10 +784,8 @@
     }
     .dev-day-btn:hover { background: var(--cor-clara); color: #1a1a1a; }
     .dev-day-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-/* ==================================================================
-       14) ESTATUTO
-       ================================================================== */
 
+    /* ===== ESTATUTO ===== */
     .est-page-header {
       display: flex; flex-wrap: wrap; justify-content: center;
       align-items: center; gap: 0.5rem;
@@ -964,7 +957,6 @@
       grid-column: 1 / -1;
     }
 
-    /* Leitor de PDF */
     .circ-viewer {
       background: var(--card-bg); border: 1px solid var(--card-border);
       border-radius: var(--radius); box-shadow: var(--shadow);
@@ -1006,8 +998,8 @@
       .circ-viewer-header { flex-direction: column; align-items: stretch; }
       .circ-viewer-title { order: -1; }
     }
-        /* ===== GLOSSÁRIO ===== */
-          /* ===== GLOSSÁRIO — novo design ===== */
+
+    /* ===== GLOSSÁRIO ===== */
     .gloss-search-row {
       display: flex; flex-wrap: wrap; gap: 0.6rem;
       align-items: center; margin-bottom: 1rem;
@@ -1019,7 +1011,6 @@
       flex: 1 1 100%; margin: 0; text-align: left; padding-left: 0.4rem;
     }
 
-    /* Barra "Ir para" do Glossário — herda .dev-jump */
     .gloss-jump {
       margin-bottom: 1.1rem;
     }
@@ -1031,7 +1022,6 @@
       .gloss-jump select { max-width: none; flex: 1; }
     }
 
-    /* Lista de deuses */
     .gloss-container {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
@@ -1154,7 +1144,8 @@
       padding: 2.5rem 0; font-style: italic;
       grid-column: 1 / -1;
     }
-        /* ===== FOOTER ===== */
+
+    /* ===== FOOTER ===== */
     .app-footer {
       margin-top: 2.2rem;
       padding: 1.6rem 1rem 1rem;
@@ -1339,7 +1330,6 @@
       <rect x="2" y="17" width="20" height="2" rx="1" />
     </svg>
   </button>
-    <!-- Botão Home fixo -->
   <a href="#" class="home-toggle" id="homeToggle" aria-label="Voltar ao início" title="Início">
     <svg viewBox="0 0 24 24">
       <path d="M3 11l9-8 9 8v9a2 2 0 0 1-2 2h-4v-6h-6v6H5a2 2 0 0 1-2-2z"/>
@@ -1358,7 +1348,7 @@
     </div>
 
     <ul class="nav-main" id="navMain">
-           <li><a data-view="devocional"><span class="nav-ico">🔥</span> Devocional Diário</a></li>
+      <li><a data-view="devocional"><span class="nav-ico">🔥</span> Devocional Diário</a></li>
       <li><a data-view="calendario"><span class="nav-ico">📅</span> Calendário</a></li>
       <li><a data-view="estatuto"><span class="nav-ico">📜</span> Estatuto</a></li>
       <li><a data-view="circulares"><span class="nav-ico">📨</span> Circulares</a></li>
@@ -1371,8 +1361,8 @@
       <ul class="nav-chapters" id="chapterNav"></ul>
       <div class="sidebar-divider"></div>
     </div>
-    
-     <div id="devocionalWrap" style="display:none;">
+
+    <div id="devocionalWrap" style="display:none;">
       <div class="sidebar-label">Devocional</div>
       <ul class="nav-chapters" id="devocionalNav">
         <li><a data-dev="dias-fixos">Dias Fixos</a></li>
@@ -1380,7 +1370,8 @@
       </ul>
       <div class="sidebar-divider"></div>
     </div>
-        <div id="calendarioWrap" style="display:none;">
+
+    <div id="calendarioWrap" style="display:none;">
       <div class="sidebar-label">Calendário</div>
       <ul class="nav-chapters" id="calendarioNav">
         <li><a data-cal="sagrado">Calendário Sagrado</a></li>
@@ -1404,7 +1395,7 @@
     </header>
 
     <!-- ===================== VIEW: HOME ===================== -->
-      <section class="view active" id="view-home">
+    <section class="view active" id="view-home">
       <div class="home-hero">
         <div class="greeting">Saudações, Naucratita!</div>
         <h2 id="homeGreeting">Bem-vindo à Náucratis</h2>
@@ -1453,7 +1444,7 @@
     <section class="view" id="view-devocional">
       <h2 class="page-title">Devocional Dias Fixos</h2>
 
-            <div class="dev-jump" id="devJumpBar">
+      <div class="dev-jump" id="devJumpBar">
         <label>Ir para:</label>
         <select id="devJumpMonth" aria-label="Mês"></select>
         <select id="devJumpDay" aria-label="Dia"></select>
@@ -1474,21 +1465,22 @@
         <button class="dev-day-btn" id="devNextDay">Próximo dia →</button>
       </div>
     </section>
-        <!-- ===================== VIEW: GLOSSÁRIO ===================== -->
-        <section class="view" id="view-glossario">
+
+    <!-- ===================== VIEW: GLOSSÁRIO ===================== -->
+    <section class="view" id="view-glossario">
       <h2 class="page-title">Glossário de Epítetos</h2>
 
       <div class="circ-intro">
         <p>Todos os epítetos dos Deuses presentes neste aplicativo, com suas respectivas traduções, agrupados por divindade em ordem alfabética. Use a barra abaixo para escolher um Deus ou busque por epíteto, tradução ou nome da divindade</p>
       </div>
 
-      <div class="dev-jump gloss-jump" id="glossJumpBar">   <!-- ← "IR PARA" AGORA VEM PRIMEIRO -->
+      <div class="dev-jump gloss-jump" id="glossJumpBar">
         <label>Ir para:</label>
         <select id="glossJumpDeus" aria-label="Divindade"></select>
         <button class="dev-jump-btn" id="glossJumpGo">Ir</button>
       </div>
 
-            <div class="gloss-search-row">
+      <div class="gloss-search-row">
         <div class="est-search-wrap">
           <span class="search-icon">🔍</span>
           <input type="text" id="glossSearchInput" placeholder="Buscar epíteto, tradução ou divindade…" aria-label="Buscar no glossário">
@@ -1498,6 +1490,7 @@
       </div>
       <div id="glossList" class="gloss-container"></div>
     </section>
+
     <!-- ===================== VIEW: CALENDÁRIO ===================== -->
     <section class="view" id="view-calendario">
       <h2 class="page-title">Calendário Sagrado</h2>
@@ -1585,8 +1578,8 @@
       <div class="est-chapter-content">
         <div class="content-inner">
           <p>Este calendário é <strong>lunissolar</strong>: acompanha as fases da Lua, que marcam a duração dos meses, e o ciclo solar, que marca as estações e os festivais anuais. É composto por 12 meses, podendo chegar a 13 para reconciliar o ano solar de 365 dias com o ano lunar de 354 dias.</p>
-          <p>Ele combina três camadas de festividades: festivais modernos autorais da comunidade, como a <em>Helleneia Maior</em> e a <em>Patroneia Maior</em>; festivais antigos da Ática, de Delfos e de Téspias; e datas cívicas brasileiras ressignificadas para o culto aos Deuses gregos, como o Carnaval, agora <em>Katharsia</em> em honra a Dioniso, e o Dia das Mães, agora <em>Panmeteria</em>.</p>
-          <p style="text-align:right;font-style:italic;margin-top:1.5rem;">— Hecatodoros, 05 de Heliogennion, Ano I da fundação de Náucratis.</p>
+          <p>Ele combina três camadas de festividades: festivais modernos autorais da comunidade, como a <em>Prytaneia</em> e a <em>Patroneia</em>; festivais antigos da Ática, de Delfos e de Téspias; e datas cívicas brasileiras ressignificadas para o culto aos Deuses gregos.</p>
+          <p style="text-align:right;font-style:italic;margin-top:1.5rem;">— Hecatodoros, 05 de Heliogenneion, Ano II da fundação de Náucratis.</p>
         </div>
       </div>
     </section>
@@ -1641,7 +1634,7 @@
         </div>
         <iframe id="circIframe" class="circ-iframe" title="Leitor de circular"></iframe>
       </div>
-    </section> 
+    </section>
 
     <footer class="app-footer">
       <span>O Conselho de Dirigentes e as lideranças naucratitas me ofertam a Zeus Xênios e Afrodite Pandemos</span>
@@ -1673,7 +1666,7 @@
       { id: 'cap5', chapter: 'Capítulo V', title: 'Sobre o Período de Aspiração e a 1ª iniciação',
         content: `<h3>Sobre o Período de Aspiração</h3><p><strong>Artigo 13:</strong> Os naucratitas plenos podem se candidatar ao Período de Aspiração. O Período tem duração de 12 a 13 meses. A participação não é compulsória.</p><h3>Sobre a primeira iniciação</h3><p><strong>Artigo 13.3.</strong> Após o Período de Aspiração, os aspirantes serão encaminhados para a 1ª iniciação, preferencialmente no dia da Helleneia Maior.</p><h3>Sobre o pós-iniciação</h3><p><strong>Artigo 14:</strong> Somente o naucratita iniciado poderá candidatar-se ao exercício de funções sacerdotais.</p>` },
       { id: 'cap6', chapter: 'Capítulo VI', title: 'Sobre o calendário sagrado naucratita',
-        content: `<h3>Sobre a estrutura do calendário</h3><p><strong>Artigo 15:</strong> O calendário sagrado naucratita é lunissolar. Composto por 12 meses — ou 13 a depender da necessidade. São os meses: 1. Heliogennion, 2. Gamelion, 3. Gynaikeon, 4. Persephoneion, 5. Patroneion, 6. Pyreion, 7. Helleneion, 8. Synoikion, 9. Demetreion, 10. Erotideon, 11. Herobeseion, 12. Andromedeion e 13 (a definir).</p><h3>Sobre os dias fixos</h3><p><strong>Artigo 17:</strong> Dia 01: Zeus; 02: Agathos Daimon; 03: Atena; 04: Afrodite, Eros, Hermes e Héracles; 05: Ares; 06: Ártemis; 07: Apolo; 08: Poseidon; 09: Helleneia Menor; 10: Hefesto; 11: sem rito fixo; 12: Héstia Polyolbos; 13: Festival dos Patronos; 14: Gaia, Pã e Ninfas; 15: Selene; 16: Hera; 17: Deméter e Dioniso; 18: Início do período de purificação; 19: Zeus Apotropaico; 20-24: sem ritos fixos; 25: Hades e Perséfone; 27-28/29: Silêncio Ritualístico; 29/30: Deipnon.</p>` },
+        content: `<h3>Sobre a estrutura do calendário</h3><p><strong>Artigo 15:</strong> O calendário sagrado naucratita é lunissolar. Composto por 12 meses — ou 13 a depender da necessidade. São os meses: 1. Heliogenneion, 2. Teleos, 3. Rhabinthios, 4. Persephoneion, 5. Patroneion, 6. Agrionios, 7. Pelagion, 8. Apatourion, 9. Ergasteion, 10. Demetreion, 11. Hyakinthios, 12. Hermaios e 13 (a definir).</p><h3>Sobre os dias fixos</h3><p><strong>Artigo 17:</strong> Dia 01: Apolo Noumenios e Deuses do Lar; 02: Agathos Daimon; 03: Atena; 04: Afrodite, Eros, Hermes e Héracles; 05: Ares; 06: Ártemis; 07: Apolo; 08: Poseidon; 09: Helleneia Menor; 10: Hefesto; 11: sem rito fixo; 12: Héstia Polyolbos; 13: Festival dos Patronos; 14: Gaia, Pã e Ninfas; 15: Selene; 16: Hera; 17: Deméter e Dioniso; 18: Início do período de purificação; 19: Zeus Apotropaico; 20-24: sem ritos fixos; 25: Hades e Perséfone; 27-28/29: Silêncio Ritualístico; 29/30: Deipnon.</p>` },
       { id: 'cap7', chapter: 'Capítulo VII', title: 'Sobre o oráculo sagrado naucratita',
         content: `<h3>Sobre a função sagrada do oráculo</h3><p><strong>Artigo 18:</strong> O Oráculo Sagrado Naucratita tem por função manifestar e preservar a vontade dos Deuses sobre a comunidade e seus membros.</p><h3>Sobre a seleção e preparo dos oraculistas</h3><p><strong>Artigo 20:</strong> O serviço oracular exige preparo adequado, legitimidade concedida pela comunidade e compromisso contínuo com o sagrado. Somente poderá ser reconhecido como oraculista oficial o membro que tenha sido devidamente iniciado.</p><h3>Sobre a ética do serviço oracular</h3><p><strong>Artigo 21:</strong> Deve ser pautado pelo respeito ao sagrado, à dignidade do consulente e aos princípios éticos.</p><h3>Sobre a estrutura do serviço oracular</h3><p><strong>Artigo 22:</strong> O serviço será organizado de forma regular, transparente e responsável. Os valores arrecadados semanalmente serão distribuídos: 75% para a Comunidade Náucratis e 25% para os oraculistas.</p>` },
       { id: 'cap8', chapter: 'Capítulo VIII', title: 'Sobre o sacerdócio sagrado naucratita',
@@ -1686,12 +1679,8 @@
 
     /* ==================================================================
        2) CIRCULARES — índice das publicações oficiais
-       Para publicar uma nova circular:
-         1. Coloque o PDF na raiz do site (mesma pasta do index.html).
-         2. Adicione um objeto abaixo, com os campos:
-            id, titulo, data (AAAA-MM-DD), mes, tags[], descricao, arquivo
        ================================================================== */
-           const CIRCULARES = [
+    const CIRCULARES = [
       {
         id: "CMN_circular_n.1",
         titulo: "Circular N° 01",
@@ -1765,38 +1754,78 @@
         arquivo: "circulares/CMN_circular_n.8.pdf"
       }
     ];
+
     /* ==================================================================
-       3) DADOS DO CALENDÁRIO
+       3) DADOS DO CALENDÁRIO — ANO II
        ================================================================== */
     const MONTHS = [
-      { name:"Heliogennion", tag:"solstício de verão", start:[2025,12,20], days:29, icon:"sun",
-        festivals:{2:"Heliogenna",6:"Diogeneia — Zeus e Dioniso",13:"Ano Novo Civil — Zeus e Héstia"} },
-      { name:"Gamelion", tag:"fortalecimento de laços", start:[2026,1,18], days:30, icon:"rings",
-        festivals:{12:"Lenaia — Dioniso",13:"Lenaia — Dioniso",14:"Lenaia — Dioniso",15:"Lenaia — Dioniso",29:"Gamelion — Hierós Gámos de Zeus e Hera"} },
-      { name:"Gynaikeion", tag:"proteção e sororidade", start:[2026,2,17], days:29, icon:"venus",
-        festivals:{1:"Katharsia — Dioniso",2:"Katharsia — Dioniso",3:"Katharsia — Dioniso",16:"Enkhespalia — Ares",17:"Gynaikothoneia — Ares",20:"Zygiaia — Hera"} },
-      { name:"Persephoneion", tag:"o rapto de Kore", start:[2026,3,18], days:30, icon:"pomegranate",
-        festivals:{3:"Equinócio de Outono",8:"Elaphebolia — Ártemis",10:"Asclepia — Asclépio",15:"Mistérios Eleusinos Maiores — Deméter e Perséfone",16:"Mistérios Eleusinos Maiores — Deméter e Perséfone",17:"Mistérios Eleusinos Maiores — Deméter e Perséfone",18:"Mistérios Eleusinos Maiores — Deméter e Perséfone",19:"Mistérios Eleusinos Maiores — Deméter e Perséfone",20:"Mistérios Eleusinos Maiores — Deméter e Perséfone",21:"Mistérios Eleusinos Maiores — Deméter e Perséfone",22:"Mistérios Eleusinos Maiores — Deméter e Perséfone"} },
-      { name:"Patroneion", tag:"viva os patronos", start:[2026,4,17], days:29, icon:"hospitality",
-        festivals:{11:"Patroneia Maior — Patronos de Náucratis",15:"Ergasteia — Hefesto, Atena e Hermes",18:"Mounychia — Ártemis",21:"Thesmophoria — Deméter e Perséfone",22:"Thesmophoria — Deméter e Perséfone",23:"Thesmophoria — Deméter e Perséfone",24:"Thesmophoria — Deméter e Perséfone · Panmeteria — mães imortais e mortais"} },
-      { name:"Pyreion", tag:"as chamas de Héstia", start:[2026,5,16], days:29, icon:"flame",
-        festivals:{6:"Thargelia — Ártemis",7:"Thargelia — Apolo",21:"Gaieia — Gaia",26:"Pyreia — Héstia, Deméter e Dioniso",28:"Aphroditeria — Eros e Afrodite"} },
-      { name:"Helleneion", tag:"solstício de inverno", start:[2026,6,14], days:30, icon:"temple",
-        festivals:{8:"Solstício de Inverno · Helleneia Maior",15:"Lysiodionysia — Dioniso",21:"Aphrodisia — Afrodite",27:"Dioskureia — Dióscuros"} },
-      { name:"Synoikion", tag:"a união das oikiai", start:[2026,7,14], days:29, icon:"houses",
-        festivals:{15:"Kronia — Cronos",17:"Synoikia — Patronos do Náucratis",25:"Panathenaia — Atena",27:"Panpateria — pais imortais e mortais"} },
-      { name:"Demetreion", tag:"os mistérios menores", start:[2026,8,12], days:30, icon:"wheat",
-        festivals:{2:"Hekateia — Hécate",22:"Mistérios Eleusinos Menores — Deméter e Perséfone",23:"Mistérios Eleusinos Menores — Deméter e Perséfone",24:"Mistérios Eleusinos Menores — Deméter e Perséfone",27:"Independência do Brasil — Atena, Nike e Apolo"} },
-      { name:"Erotideion", tag:"equinócio de primavera", start:[2026,9,11], days:29, icon:"heart",
-        festivals:{12:"Equinócio de Primavera · Teofania — Apolo",13:"Anthesteria — Dioniso",14:"Anthesteria — Dioniso",15:"Anthesteria — Dioniso",20:"Erotidea — Eros e as Musas"} },
-      { name:"Herobeseion", tag:"proteção à infância", start:[2026,10,10], days:30, icon:"footprints",
-        festivals:{3:"Herobesia — Hera e Bes",24:"Pannekyia — Hades e Perséfone"} },
-      { name:"Andromedeion", tag:"a heroína da Etiópia", start:[2026,11,9], days:29, icon:"stars",
-        festivals:{12:"Andromedeia — Andrômeda",22:"Pantechneia — Atena e Hefesto"} },
+      { name:"Heliogenneion", tag:"o ano novo naucratita", start:[2026,12,10], days:30, icon:"sun",
+        festivals:{
+          1:"Prytaneia — Ano Novo Naucratita · Héstia Prytanites",
+          12:"Heliogenna — Solstício de Verão · Apolo e Hélio"
+        } },
+      { name:"Teleos", tag:"a plenitude do ano", start:[2027,1,9], days:29, icon:"rings",
+        festivals:{ 13:"Teleia — Hera Teleia" } },
+      { name:"Rhabinthios", tag:"o renovar da terra", start:[2027,2,8], days:30, icon:"pomegranate",
+        festivals:{
+          19:"Khoiak — Ísis, Osíris, Serápis e Ápis",
+          20:"Khoiak — Ísis, Osíris, Serápis e Ápis",
+          21:"Khoiak — Ísis, Osíris, Serápis e Ápis"
+        } },
+      { name:"Persephoneion", tag:"o rapto de Kore", start:[2027,3,10], days:29, icon:"pomegranate",
+        festivals:{
+          10:"Mistérios Maiores de Elêusis — Koré e Deméter",
+          11:"Mistérios Maiores de Elêusis — Koré e Deméter",
+          12:"Mistérios Maiores de Elêusis — Koré e Deméter",
+          13:"Mistérios Maiores de Elêusis — Koré e Deméter"
+        } },
+      { name:"Patroneion", tag:"viva os patronos", start:[2027,4,8], days:30, icon:"hospitality",
+        festivals:{ 1:"Patroneia — Zeus Ktesios e Afrodite Pandemos" } },
+      { name:"Agrionios", tag:"o Dioniso selvagem", start:[2027,5,8], days:29, icon:"flame",
+        festivals:{ 9:"Agriônia — Dioniso Agrionios" } },
+      { name:"Pelagion", tag:"as águas do Nilo", start:[2027,6,6], days:29, icon:"temple",
+        festivals:{
+          8:"Soukheia — Poseidon, Dioskouros e Sobek",
+          15:"Soukheia — Poseidon, Dioskouros e Sobek"
+        } },
+      { name:"Apatourion", tag:"a festa dos clãs", start:[2027,7,5], days:30, icon:"houses",
+        festivals:{
+          13:"Aphrogeneion — Afrodite Ourania",
+          14:"Aphrogeneion — Afrodite Ourania",
+          15:"Aphrogeneion — Afrodite Ourania"
+        } },
+      { name:"Ergasteion", tag:"o trabalho dos Deuses", start:[2027,8,4], days:29, icon:"wheat",
+        festivals:{
+          11:"Ergasteia — Atena, Hefesto, Hermes, Ares, Dioniso e Ártemis",
+          12:"Ergasteia — Atena, Hefesto, Hermes, Ares, Dioniso e Ártemis",
+          13:"Ergasteia — Atena, Hefesto, Hermes, Ares, Dioniso e Ártemis"
+        } },
+      { name:"Demetreion", tag:"os mistérios menores", start:[2027,9,2], days:29, icon:"wheat",
+        festivals:{
+          17:"Mistérios Menores de Elêusis — Koré e Deméter",
+          18:"Mistérios Menores de Elêusis — Koré e Deméter",
+          19:"Mistérios Menores de Elêusis — Koré e Deméter",
+          20:"Mistérios Menores de Elêusis — Koré e Deméter",
+          21:"Mistérios Menores de Elêusis — Koré e Deméter",
+          22:"Mistérios Menores de Elêusis — Koré e Deméter",
+          23:"Mistérios Menores de Elêusis — Koré e Deméter"
+        } },
+      { name:"Hyakinthios", tag:"o jacinto de Apolo", start:[2027,10,1], days:30, icon:"heart",
+        festivals:{
+          7:"Hyakinthia — Apolo Hyakinthios e Jacinto",
+          8:"Hyakinthia — Apolo Hyakinthios e Jacinto",
+          9:"Hyakinthia — Apolo Hyakinthios e Jacinto"
+        } },
+      { name:"Hermaios", tag:"o ano novo naucratita", start:[2027,10,31], days:29, icon:"stars",
+        festivals:{
+          2:"Hermaia — Hermes e Héracles Apotropaicos",
+          3:"Hermaia — Hermes e Héracles Apotropaicos",
+          4:"Hermaia — Hermes e Héracles Apotropaicos"
+        } },
     ];
 
     const FIXED = {
-      1:"Zeus", 2:"Agathos Daimon", 3:"Atena", 4:"Afrodite, Eros, Hermes e Héracles",
+      1:"Apolo Noumenios e Deuses do Lar", 2:"Agathos Daimon", 3:"Atena", 4:"Afrodite, Eros, Hermes e Héracles",
       5:"Ares", 6:"Ártemis", 7:"Apolo", 8:"Poseidon", 9:"Helleneia Menor", 10:"Hefesto",
       12:"Héstia Polyolbos", 13:"Festival dos Patronos", 14:"Gaia, Pã e Ninfas", 15:"Selene",
       16:"Hera", 17:"Deméter e Dioniso", 18:"Início do período de purificação",
@@ -1895,8 +1924,9 @@
       "Katharsios": "Purificador", "Ikesios": "Protetor dos suplicantes", "Hiketesios": "Protetor dos suplicantes",
       "Xenios": "Dos hóspedes", "Philios": "Amigável, do amor", "Horkios": "Dos juramentos", "Alastor": "Vingador",
       "Palamnaios": "Das mãos manchadas", "Phyxios": "Da fuga, protetor dos refugiados", "Lykaios": "De Licéia (Arcádia)",
-      "Aphesios": "Que dispensa, que liberta", "Astrapaios": "Do relâmpago", "Kerauneios": "Do raio",      "Elicius": "Que atrai (uso romano)", "Basileus": "Rei", "Katachthonios": "Subterrâneo", "Chthonios": "Ctônico",
-           "Elicius": "Que atrai (uso romano)", "Basileus": "Rei", "Basileia": "Rainha", "Basilis": "Rainha", "Hippios": "Dos cavalos, equestre", "Katachthonios": "Subterrâneo", "Chthonios": "Ctônico",
+      "Aphesios": "Que dispensa, que liberta", "Astrapaios": "Do relâmpago", "Kerauneios": "Do raio",
+      "Elicius": "Que atrai (uso romano)", "Basileus": "Rei", "Basileia": "Rainha", "Basilis": "Rainha",
+      "Hippios": "Dos cavalos, equestre", "Katachthonios": "Subterrâneo", "Chthonios": "Ctônico",
       "Pater": "Pai", "Phoebus": "Brilhante, Radiante", "Phoibos": "Brilhante, Radiante",
       "Pythios": "Pítico, matador de Piton", "Delphinios": "Do golfinho", "Delios": "De Delos",
       "Lykeios": "Do lobo, ou da luz", "Loxias": "Oblíquo, o enigmático", "Musagetes": "Condutor das Musas",
@@ -2071,9 +2101,9 @@ Dê-me toda a graça, toda a realização, porque tu é aquele que traz o bem, o
           preparacao: "Se possível, tome um banho; senão, apenas lave o rosto e as mãos. Acenda vela e incenso. Respire fundo e, em silêncio, concentre-se no rito.",
           abertura: "Erga as mãos à meia altura e diga: Khairete, Theoï! Khaire Agathos Daimon! Faça um breve silêncio ritualístico; em seguida, entoe um canto invocando Héstia.",
           libacaoPassos: [
-           "1ª libação — Héstia Polyolbos e Agathos Daimon: \"Ó Héstia Polyolbos, senhora do lar e da harmonia, e ó Agathos Daimon, recebam esta libação.\"",
-           "2ª libação — Patronos da comunidade e divindade de maior kharis do naucratita: \"Ó Zeus Xênios e Afrodite Pandemos, patronos de Náucratis, e ó [DIVINDADE DE MAIOR KHARIS], a vós esta libação.\"",
-           "3ª libação — Zeus Soter / Zeus Meilichios, Hígia e Deuses do lar: \"Ó Zeus Soter e Meilichios, ó Hígia e Deuses do lar, recebam esta libação.\""
+            "1ª libação — Héstia Polyolbos e Agathos Daimon: \"Ó Héstia Polyolbos, senhora do lar e da harmonia, e ó Agathos Daimon, recebam esta libação.\"",
+            "2ª libação — Patronos da comunidade e divindade de maior kharis do naucratita: \"Ó Zeus Xênios e Afrodite Pandemos, patronos de Náucratis, e ó [DIVINDADE DE MAIOR KHARIS], a vós esta libação.\"",
+            "3ª libação — Zeus Soter / Zeus Meilichios, Hígia e Deuses do lar: \"Ó Zeus Soter e Meilichios, ó Hígia e Deuses do lar, recebam esta libação.\""
           ],
           oferenda: "Ofereça aos deuses os alimentos separados para tal finalidade. Diga: \"Recebam, ó bem-aventurados imortais, estas oferendas que lhes faço de coração\".",
           prece: "Faça uma breve prece ao deus honrado no dia.",
@@ -2109,7 +2139,7 @@ Palas unigênita, prole insigne do grande Zeus, divina, venturosa deusa de cora�
           abertura: "Erga as mãos à meia altura e diga: Khairete, Theoi! Khaire Atena [epíteto do mês]! Faça um breve silêncio ritualístico; em seguida, entoe um canto invocando Héstia.",
           libacaoPassos: [
             "1ª libação — Héstia Polyolbos e Atena [epíteto do mês]: \"Ó Héstia Polyolbos, senhora do lar e da harmonia, e ó Atena [epíteto do mês], recebam esta libação.\"",
-            "2ª libação — Patronos da comunidade e divindade de maior kharis: \"Ó Zeus Xênios e Afrodite Pandemos, patronos de Náucratis, ó [DIVINDADE DE MAIOR KHARIS], a vós esta libação.\"",
+            "2ª libação — Patronos da comunidade e divindade de maior kharis: \"Ó Zeus Xênios e Afrodite Pandemos, patronos de Náucratis, e ó [DIVINDADE DE MAIOR KHARIS], a vós esta libação.\"",
             "3ª libação — Zeus Soter / Zeus Meilichios, Hígia e Deuses do lar: \"Ó Zeus Soter e Meilichios, ó Hígia e Deuses do lar, recebam esta libação.\""
           ],
           oferenda: "Ofereça aos deuses os alimentos separados para tal finalidade. Diga: \"Recebam, ó bem-aventurados imortais, estas oferendas que lhes faço de coração\".",
@@ -2160,7 +2190,7 @@ Héracles de coração brutal, magna força, bravo titã, braço forte, indomáv
           abertura: "Erga as mãos à meia altura e diga: Khairete, Theoi! Khaire Afrodite [epíteto do mês], Eros [epíteto do mês], Hermes [epíteto do mês] e Héracles [epíteto do mês]! Faça um breve silêncio ritualístico; em seguida, entoe um canto invocando Héstia.",
           libacaoPassos: [
             "1ª libação — Héstia Polyolbos e Afrodite [epíteto do mês], Eros [epíteto do mês], Hermes [epíteto do mês] e Héracles [epíteto do mês]: \"Ó Héstia Polyolbos, senhora do lar e da harmonia, ó Afrodite [epíteto do mês], Eros [epíteto do mês], Hermes [epíteto do mês] e Héracles [epíteto do mês], recebam esta libação.\"",
-            "2ª libação — Patronos da comunidade e divindade de maior kharis: \"Ó Zeus Xênios e Afrodite Pandemos, patronos de Náucratis, ó [DIVINDADE DE MAIOR KHARIS], a vós esta libação.\"",
+            "2ª libação — Patronos da comunidade e divindade de maior kharis: \"Ó Zeus Xênios e Afrodite Pandemos, patronos de Náucratis, e ó [DIVINDADE DE MAIOR KHARIS], a vós esta libação.\"",
             "3ª libação — Zeus Soter / Zeus Meilichios, Hígia e Deuses do lar: \"Ó Zeus Soter e Meilichios, ó Hígia e Deuses do lar, recebam esta libação.\""
           ],
           oferenda: "Ofereça aos deuses os alimentos separados para tal finalidade. Diga: \"Recebam, ó bem-aventurados imortais, estas oferendas que lhes faço de coração\".",
@@ -2197,7 +2227,7 @@ Invulnerável coração brutal, magna força, bravo nume que se apraz em armas, 
           abertura: "Erga as mãos à meia altura e diga: Khairete, Theoi! Khaire Ares [epíteto do mês]! Faça um breve silêncio ritualístico; em seguida, entoe um canto invocando Héstia.",
           libacaoPassos: [
             "1ª libação — Héstia Polyolbos e Ares [epíteto do mês]: \"Ó Héstia Polyolbos, senhora do lar e da harmonia, e ó Ares [epíteto do mês], recebam esta libação.\"",
-            "2ª libação — Patronos da comunidade e divindade de maior kharis: \"Ó Zeus Xênios e Afrodite Pandemos, patronos de Náucratis, ó [DIVINDADE DE MAIOR KHARIS], a vós esta libação.\"",
+            "2ª libação — Patronos da comunidade e divindade de maior kharis: \"Ó Zeus Xênios e Afrodite Pandemos, patronos de Náucratis, e ó [DIVINDADE DE MAIOR KHARIS], a vós esta libação.\"",
             "3ª libação — Zeus Soter / Zeus Meilichios, Hígia e Deuses do lar: \"Ó Zeus Soter e Meilichios, ó Hígia e Deuses do lar, recebam esta libação.\""
           ],
           oferenda: "Ofereça aos deuses os alimentos separados para tal finalidade. Diga: \"Recebam, ó bem-aventurados imortais, estas oferendas que lhes faço de coração\".",
@@ -2234,7 +2264,7 @@ Ouve-me, rainha, donzela de Zeus, de muitos nomes, Titânide, Brômia de nome ma
           abertura: "Erga as mãos à meia altura e diga: Khairete, Theoi! Khaire Ártemis [epíteto do mês]! Faça um breve silêncio ritualístico; em seguida, entoe um canto invocando Héstia.",
           libacaoPassos: [
             "1ª libação — Héstia Polyolbos e Ártemis [epíteto do mês]: \"Ó Héstia Polyolbos, senhora do lar e da harmonia, e ó Ártemis [epíteto do mês], recebam esta libação.\"",
-            "2ª libação — Patronos da comunidade e divindade de maior kharis: \"Ó Zeus Xênios e Afrodite Pandemos, patronos de Náucratis, ó [DIVINDADE DE MAIOR KHARIS], a vós esta libação.\"",
+            "2ª libação — Patronos da comunidade e divindade de maior kharis: \"Ó Zeus Xênios e Afrodite Pandemos, patronos de Náucratis, e ó [DIVINDADE DE MAIOR KHARIS], a vós esta libação.\"",
             "3ª libação — Zeus Soter / Zeus Meilichios, Hígia e Deuses do lar: \"Ó Zeus Soter e Meilichios, ó Hígia e Deuses do lar, recebam esta libação.\""
           ],
           oferenda: "Ofereça aos deuses os alimentos separados para tal finalidade. Diga: \"Recebam, ó bem-aventurados imortais, estas oferendas que lhes faço de coração\".",
@@ -2271,7 +2301,7 @@ Vem, venturoso Peã, assassino de Tício, lê Febo, de Licórea e de Mênfis, de
           abertura: "Erga as mãos à meia altura e diga: Khairete, Theoi! Khaire Apolo [epíteto do mês]! Faça um breve silêncio ritualístico; em seguida, entoe um canto invocando Héstia.",
           libacaoPassos: [
             "1ª libação — Héstia Polyolbos e Apolo [epíteto do mês]: \"Ó Héstia Polyolbos, senhora do lar e da harmonia, e ó Apolo [epíteto do mês], recebam esta libação.\"",
-            "2ª libação — Patronos da comunidade e divindade de maior kharis: \"Ó Zeus Xênios e Afrodite Pandemos, patronos de Náucratis, ó [DIVINDADE DE MAIOR KHARIS], a vós esta libação.\"",
+            "2ª libação — Patronos da comunidade e divindade de maior kharis: \"Ó Zeus Xênios e Afrodite Pandemos, patronos de Náucratis, e ó [DIVINDADE DE MAIOR KHARIS], a vós esta libação.\"",
             "3ª libação — Zeus Soter / Zeus Meilichios, Hígia e Deuses do lar: \"Ó Zeus Soter e Meilichios, ó Hígia e Deuses do lar, recebam esta libação.\""
           ],
           oferenda: "Ofereça aos deuses os alimentos separados para tal finalidade. Diga: \"Recebam, ó bem-aventurados imortais, estas oferendas que lhes faço de coração\".",
@@ -2308,7 +2338,7 @@ Ouve-me, Poseidon abraça-terra, de escuros cabelos, equestre, com um tridente l
           abertura: "Erga as mãos à meia altura e diga: Khairete, Theoi! Khaire Poseidon [epíteto do mês]! Faça um breve silêncio ritualístico; em seguida, entoe um canto invocando Héstia.",
           libacaoPassos: [
             "1ª libação — Héstia Polyolbos e Poseidon [epíteto do mês]: \"Ó Héstia Polyolbos, senhora do lar e da harmonia, e ó Poseidon [epíteto do mês], recebam esta libação.\"",
-            "2ª libação — Patronos da comunidade e divindade de maior kharis: \"Ó Zeus Xênios e Afrodite Pandemos, patronos de Náucratis, ó [DIVINDADE DE MAIOR KHARIS], a vós esta libação.\"",
+            "2ª libação — Patronos da comunidade e divindade de maior kharis: \"Ó Zeus Xênios e Afrodite Pandemos, patronos de Náucratis, e ó [DIVINDADE DE MAIOR KHARIS], a vós esta libação.\"",
             "3ª libação — Zeus Soter / Zeus Meilichios, Hígia e Deuses do lar: \"Ó Zeus Soter e Meilichios, ó Hígia e Deuses do lar, recebam esta libação.\""
           ],
           oferenda: "Ofereça aos deuses os alimentos separados para tal finalidade. Diga: \"Recebam, ó bem-aventurados imortais, estas oferendas que lhes faço de coração\".",
@@ -2344,7 +2374,7 @@ Aprende, Museu, um rito místico mui insigne; uma prece, sim, que é superior a 
           abertura: "Erga as mãos à meia altura e diga: Khairete, Theoi! Faça um breve silêncio ritualístico; em seguida, entoe um canto invocando Héstia.",
           libacaoPassos: [
             "1ª libação — Héstia Polyolbos e aos Deuses Gregos: \"Ó Héstia Polyolbos, senhora do lar e da harmonia, e ó Deuses Gregos, dos céus, da terra e do mar, vós que detém a realidade, recebam esta libação.\"",
-            "2ª libação — Patronos da comunidade e divindade de maior kharis: \"Ó Zeus Xênios e Afrodite Pandemos, patronos de Náucratis, ó [DIVINDADE DE MAIOR KHARIS], a vós esta libação.\"",
+            "2ª libação — Patronos da comunidade e divindade de maior kharis: \"Ó Zeus Xênios e Afrodite Pandemos, patronos de Náucratis, e ó [DIVINDADE DE MAIOR KHARIS], a vós esta libação.\"",
             "3ª libação — Zeus Soter / Zeus Meilichios, Hígia e Deuses do lar: \"Ó Zeus Soter e Meilichios, ó Hígia e Deuses do lar, recebam esta libação.\""
           ],
           oferenda: "Ofereça aos deuses os alimentos separados para tal finalidade. Diga: \"Recebam, ó bem-aventurados imortais, estas oferendas que lhes faço de coração\".",
@@ -2380,7 +2410,7 @@ Hefesto de coração brutal, magna força, fogo infatigável, lume em puras cham
           abertura: "Erga as mãos à meia altura e diga: Khairete, Theoi! Khaire Hefesto [epíteto do mês]! Faça um breve silêncio ritualístico; em seguida, entoe um canto invocando Héstia.",
           libacaoPassos: [
             "1ª libação — Héstia Polyolbos e Hefesto [epíteto do mês]: \"Ó Héstia Polyolbos, senhora do lar e da harmonia, e ó Hefesto [epíteto do mês], recebam esta libação.\"",
-            "2ª libação — Patronos da comunidade e divindade de maior kharis: \"Ó Zeus Xênios e Afrodite Pandemos, patronos de Náucratis, ó [DIVINDADE DE MAIOR KHARIS], a vós esta libação.\"",
+            "2ª libação — Patronos da comunidade e divindade de maior kharis: \"Ó Zeus Xênios e Afrodite Pandemos, patronos de Náucratis, e ó [DIVINDADE DE MAIOR KHARIS], a vós esta libação.\"",
             "3ª libação — Zeus Soter / Zeus Meilichios, Hígia e Deuses do lar: \"Ó Zeus Soter e Meilichios, ó Hígia e Deuses do lar, recebam esta libação.\""
           ],
           oferenda: "Ofereça aos deuses os alimentos separados para tal finalidade. Diga: \"Recebam, ó bem-aventurados imortais, estas oferendas que lhes faço de coração\".",
@@ -2408,7 +2438,7 @@ Conhecedor e, chegando, traz graça pra minha canção!`,
           abertura: "Erga as mãos à meia altura e diga: Khairete, Theoi! Khaire Héstia Polyolbos! Faça um breve silêncio ritualístico.",
           libacaoPassos: [
             "1ª libação — Héstia Polyolbos: \"Ó Héstia Polyolbos, senhora do lar e da harmonia, receba esta libação.\"",
-            "2ª libação — Patronos da comunidade e divindade de maior kharis: \"Ó Zeus Xênios e Afrodite Pandemos, patronos de Náucratis, ó [DIVINDADE DE MAIOR KHARIS], a vós esta libação.\"",
+            "2ª libação — Patronos da comunidade e divindade de maior kharis: \"Ó Zeus Xênios e Afrodite Pandemos, patronos de Náucratis, e ó [DIVINDADE DE MAIOR KHARIS], a vós esta libação.\"",
             "3ª libação — Zeus Soter / Zeus Meilichios, Hígia e Deuses do lar: \"Ó Zeus Soter e Meilichios, ó Hígia e Deuses do lar, recebam esta libação.\""
           ],
           oferenda: "Ofereça aos deuses os alimentos separados para tal finalidade. Diga: \"Recebam, ó bem-aventurados imortais, estas oferendas que lhes faço de coração\".",
@@ -2537,7 +2567,7 @@ Ninfas, filhas do magnânimo Oceano, com lares nos úmidos recessos da terra, nu
           abertura: "Erga as mãos à meia altura e diga: Khairete, Theoï! Khairete Gaia, Pã [epíteto do mês] e ninfas! Faça um breve silêncio ritualístico; em seguida, entoe um canto invocando Héstia.",
           libacaoPassos: [
             "1ª libação — Héstia Polyolbos e Gaia, Pã [epíteto do mês] e Ninfas: \"Ó Héstia Polyolbos, senhora do lar e da harmonia, ó Gaia, Pã e Ninfas, recebam esta libação.\"",
-            "2ª libação — Patronos da comunidade e divindade de maior kharis: \"Ó Zeus Xênios e Afrodite Pandemos, patronos de Náucratis, ó [DIVINDADE DE MAIOR KHARIS], a vós esta libação.\"",
+            "2ª libação — Patronos da comunidade e divindade de maior kharis: \"Ó Zeus Xênios e Afrodite Pandemos, patronos de Náucratis, e ó [DIVINDADE DE MAIOR KHARIS], a vós esta libação.\"",
             "3ª libação — Zeus Soter / Zeus Meilichios, Hígia e Deuses do lar: \"Ó Zeus Soter e Meilichios, ó Hígia e Deuses do lar, recebam esta libação.\""
           ],
           oferenda: "Ofereça aos deuses os alimentos separados para tal finalidade. Diga: \"Recebam, ó bem-aventurados imortais, estas oferendas que lhes faço de coração\".",
@@ -2592,7 +2622,7 @@ Pelos seus feitos nos lábios amáveis dos servos das Musas.`,
           abertura: "Erga as mãos à meia altura e diga: Khairete, Theoï! Khaire Selene [epíteto do mês]! Faça um breve silêncio ritualístico; em seguida, entoe um canto invocando Héstia.",
           libacaoPassos: [
             "1ª libação — Héstia Polyolbos e Selene [epíteto do mês]: \"Ó Héstia Polyolbos, senhora do lar e da harmonia, e ó Selene [epíteto do mês], recebam esta libação.\"",
-            "2ª libação — Patronos da comunidade e divindade de maior kharis: \"Ó Zeus Xênios e Afrodite Pandemos, patronos de Náucratis, ó [DIVINDADE DE MAIOR KHARIS], a vós esta libação.\"",
+            "2ª libação — Patronos da comunidade e divindade de maior kharis: \"Ó Zeus Xênios e Afrodite Pandemos, patronos de Náucratis, e ó [DIVINDADE DE MAIOR KHARIS], a vós esta libação.\"",
             "3ª libação — Zeus Soter / Zeus Meilichios, Hígia e Deuses do lar: \"Ó Zeus Soter e Meilichios, ó Hígia e Deuses do lar, recebam esta libação.\""
           ],
           oferenda: "Ofereça aos deuses os alimentos separados para tal finalidade. Diga: \"Recebam, ó bem-aventurados imortais, estas oferendas que lhes faço de coração\".",
@@ -2628,7 +2658,7 @@ No escuro seio do mar assentada, aeriforme, Hera rainha de tudo, venturosa conso
           abertura: "Erga as mãos à meia altura e diga: Khairete, Theoï! Khaire Hera [epíteto do mês]! Faça um breve silêncio ritualístico; em seguida, entoe um canto invocando Héstia.",
           libacaoPassos: [
             "1ª libação — Héstia Polyolbos e Hera [epíteto do mês]: \"Ó Héstia Polyolbos, senhora do lar e da harmonia, e ó Hera [epíteto do mês], recebam esta libação.\"",
-            "2ª libação — Patronos da comunidade e divindade de maior kharis: \"Ó Zeus Xênios e Afrodite Pandemos, patronos de Náucratis, ó [DIVINDADE DE MAIOR KHARIS], a vós esta libação.\"",
+            "2ª libação — Patronos da comunidade e divindade de maior kharis: \"Ó Zeus Xênios e Afrodite Pandemos, patronos de Náucratis, e ó [DIVINDADE DE MAIOR KHARIS], a vós esta libação.\"",
             "3ª libação — Zeus Soter / Zeus Meilichios, Hígia e Deuses do lar: \"Ó Zeus Soter e Meilichios, ó Hígia e Deuses do lar, recebam esta libação.\""
           ],
           oferenda: "Ofereça aos deuses os alimentos separados para tal finalidade. Diga: \"Recebam, ó bem-aventurados imortais, estas oferendas que lhes faço de coração\".",
@@ -2671,7 +2701,7 @@ Invoco Dioniso de amplo clamor, que brada evoés, primogênito de duas naturezas
           abertura: "Erga as mãos à meia altura e diga: Khairete, Theoï! Khairete Deméter e Dioniso [epíteto do mês]! Faça um breve silêncio ritualístico; em seguida, entoe um canto invocando Héstia.",
           libacaoPassos: [
             "1ª libação — Héstia Polyolbos e Deméter [epíteto do mês] e Dioniso [epíteto do mês]: \"Ó Héstia Polyolbos, senhora do lar e da harmonia, e ó Deméter [epíteto do mês] e Dioniso [epíteto do mês], recebam esta libação.\"",
-            "2ª libação — Patronos da comunidade e divindade de maior kharis: \"Ó Zeus Xênios e Afrodite Pandemos, patronos de Náucratis, ó [DIVINDADE DE MAIOR KHARIS], a vós esta libação.\"",
+            "2ª libação — Patronos da comunidade e divindade de maior kharis: \"Ó Zeus Xênios e Afrodite Pandemos, patronos de Náucratis, e ó [DIVINDADE DE MAIOR KHARIS], a vós esta libação.\"",
             "3ª libação — Zeus Soter / Zeus Meilichios, Hígia e Deuses do lar: \"Ó Zeus Soter e Meilichios, ó Hígia e Deuses do lar, recebam esta libação.\""
           ],
           oferenda: "Ofereça aos deuses os alimentos separados para tal finalidade. Diga: \"Recebam, ó bem-aventurados imortais, estas oferendas que lhes faço de coração\".",
@@ -2682,7 +2712,7 @@ Invoco Dioniso de amplo clamor, que brada evoés, primogênito de duas naturezas
       },
       18: {
         titulo: "Início do Período de Purificação",
-      divindades: ["Héstia Polyolbos", "Higía", "Hécate Borborophorba"], foco: "Limpeza do lar e purificação em preparação para o Deipnon.",
+        divindades: ["Héstia Polyolbos", "Higía", "Hécate Borborophorba"], foco: "Limpeza do lar e purificação em preparação para o Deipnon.",
         libacao: "Água", oferenda: "—",
         aberturaEspecial: null, hinoTitulo: null, hinoTexto: null,
         ritoEspecial: `1. Fazer uma faxina geral em casa ou no quarto.
@@ -2754,7 +2784,7 @@ há maior honra do que celebrar sempre a tua lei universal.`,
           abertura: "Erga as mãos à meia altura e diga: Khairete, Theoi! Khaire Zeus Apotropaico! Faça um breve silêncio ritualístico; em seguida, entoe um canto invocando Héstia.",
           libacaoPassos: [
             "1ª libação — Héstia Polyolbos e Zeus Apotropaico: \"Ó Héstia Polyolbos, senhora do lar e da harmonia, e ó Zeus Apotropaico, recebam esta libação.\"",
-            "2ª libação — Patronos da comunidade e divindade de maior kharis: \"Ó Zeus Xênios e Afrodite Pandemos, patronos de Náucratis, ó [DIVINDADE DE MAIOR KHARIS], a vós esta libação.\"",
+            "2ª libação — Patronos da comunidade e divindade de maior kharis: \"Ó Zeus Xênios e Afrodite Pandemos, patronos de Náucratis, e ó [DIVINDADE DE MAIOR KHARIS], a vós esta libação.\"",
             "3ª libação — Zeus Soter / Zeus Meilichios, Hígia e Deuses do lar: \"Ó Zeus Soter e Meilichios, ó Hígia e Deuses do lar, recebam esta libação.\""
           ],
           oferenda: "Ofereça aos deuses os alimentos separados para tal finalidade. Diga: \"Recebam, ó bem-aventurados imortais, estas oferendas que lhes faço de coração\".",
@@ -2798,7 +2828,7 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
           abertura: "Erga as mãos à meia altura e diga: Khairete, Theoï! Khairete Hades Euboleus e Perséfone Biodoti! Faça um breve silêncio ritualístico; em seguida, entoe um canto invocando Héstia.",
           libacaoPassos: [
             "1ª libação — Héstia Polyolbos e Hades Euboleus, Perséfone Biodoti: \"Ó Héstia Polyolbos, senhora do lar e da harmonia, ó rei Hades Euboleus e rainha Perséfone Biodoti, recebam esta libação.\"",
-            "2ª libação — Patronos da comunidade e divindade de maior kharis: \"Ó Zeus Xênios e Afrodite Pandemos, patronos de Náucratis, ó [DIVINDADE DE MAIOR KHARIS], a vós esta libação.\"",
+            "2ª libação — Patronos da comunidade e divindade de maior kharis: \"Ó Zeus Xênios e Afrodite Pandemos, patronos de Náucratis, e ó [DIVINDADE DE MAIOR KHARIS], a vós esta libação.\"",
             "3ª libação — Zeus Soter / Zeus Meilichios, Hígia e Deuses do lar: \"Ó Zeus Soter e Meilichios, ó Hígia e Deuses do lar, recebam esta libação.\""
           ],
           oferenda: "Ofereça aos deuses os alimentos separados para tal finalidade. Diga: \"Recebam, ó bem-aventurados imortais, estas oferendas que lhes faço de coração\".",
@@ -2812,7 +2842,7 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
         divindades: [], foco: "Introspecção, reflexão sobre o mês que passou.",
         libacao: "Água", oferenda: "Incensos",
         aberturaEspecial: null, hinoTitulo: null, hinoTexto: null,
-          ritoEspecial: `1. Manter a rotina devocional, mas sem palavras.
+        ritoEspecial: `1. Manter a rotina devocional, mas sem palavras.
 2. No lugar da prece, meditar sobre os Deuses em silêncio, diante do altar.
 3. Libação e oferendas feitas observando este silêncio.`
       },
@@ -2872,11 +2902,6 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
 
     /* ==================================================================
        6-bis) DIAS COM EPÍTETOS FIXOS
-       Dias em que os epítetos das divindades já estão fixados no próprio
-       rito (Zeus Ktesios, Apolo Noumenios, Héstia Polyolbos, Zeus Xênios,
-       Afrodite Pandemos, Zeus Apotropaicos, Hades Euboleus, Perséfone
-       Biodoti, Hécate Borborophorba, etc.). Nestes dias a seção
-       "Epítetos do Mês" NÃO deve aparecer, pois o epíteto não varia.
        ================================================================== */
     const DIAS_EPITETOS_FIXOS = [1, 9, 12, 13, 19, 25, 'deipnon'];
 
@@ -2985,11 +3010,11 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
     const overlay = document.getElementById('overlay');
     const menuToggle = document.getElementById('menuToggle');
     const navMain = document.getElementById('navMain');
-        const chaptersWrap = document.getElementById('chaptersWrap');
+    const chaptersWrap = document.getElementById('chaptersWrap');
     const chapterNav = document.getElementById('chapterNav');
     const devocionalWrap = document.getElementById('devocionalWrap');
     const devocionalNav = document.getElementById('devocionalNav');
-        const calendarioWrap = document.getElementById('calendarioWrap');
+    const calendarioWrap = document.getElementById('calendarioWrap');
     const calendarioNav = document.getElementById('calendarioNav');
 
     let currentView = 'home';
@@ -3083,17 +3108,16 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
     }
     menuToggle.addEventListener('click', (e) => { e.stopPropagation(); toggleMenu(); });
     overlay.addEventListener('click', () => toggleMenu(false));
-        document.getElementById('homeToggle').addEventListener('click', (e) => {
+    document.getElementById('homeToggle').addEventListener('click', (e) => {
       e.preventDefault();
       switchView('home');
       if (window.innerWidth <= 700) toggleMenu(false);
     });
 
-      document.querySelectorAll('.tema-botao').forEach(btn => {
+    document.querySelectorAll('.tema-botao').forEach(btn => {
       btn.addEventListener('click', () => setTema(btn.dataset.tema));
     });
 
-    /* ===== CORES DAS BARRAS DO SISTEMA POR TEMA ===== */
     const CORES_TEMA = {
       ceramica:  '#5a1a02',
       nilo:      '#1e4487',
@@ -3107,7 +3131,6 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
       document.querySelectorAll('.tema-botao').forEach(b => b.classList.toggle('ativo', b.dataset.tema === tema));
       localStorage.setItem('tema-naucratis-app', tema);
 
-      // Atualiza a cor da barra de status e da barra de navegação do sistema
       const cor = CORES_TEMA[tema] || CORES_TEMA.ceramica;
       const meta = document.querySelector('meta[name="theme-color"]');
       if (meta) meta.setAttribute('content', cor);
@@ -3134,7 +3157,6 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
       devocionalWrap.style.display = (view === 'devocional' || view === 'glossario') ? 'block' : 'none';
       calendarioWrap.style.display = (view === 'calendario' || view === 'purificacao' || view === 'silencio' || view === 'sobre-calendario') ? 'block' : 'none';
 
-      // Destaca o item ativo na sub-navegação do Devocional
       if (devocionalNav) {
         devocionalNav.querySelectorAll('a').forEach(a => {
           const isActive =
@@ -3144,7 +3166,6 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
         });
       }
 
-      // Destaca o item ativo na sub-navegação do Calendário
       if (calendarioNav) {
         calendarioNav.querySelectorAll('a').forEach(a => {
           const isActive =
@@ -3194,7 +3215,6 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Handlers das sub-navegações — FORA do switchView (evita re-registrar listeners)
     devocionalNav.querySelectorAll('a[data-dev]').forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
@@ -3231,7 +3251,7 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
       const devTitle = document.getElementById('homeDevTitle');
       const devMsg = document.getElementById('homeDevMessage');
 
-        if (!info) {
+      if (!info) {
         greeting.textContent = 'Bem-vindo à Náucratis';
         todayDate.textContent = fmtGregFull(new Date());
         devTitle.textContent = '—';
@@ -3256,7 +3276,7 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
       }
       devTitle.textContent = titulo;
       devMsg.innerHTML = `<p>${resumoMsg}</p>`;
-      
+
       const allFests = [];
       MONTHS.forEach((mm, mi) => {
         Object.keys(mm.festivals).forEach(dStr => {
@@ -3319,7 +3339,6 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
       elDay.textContent = `${ordinal(dayNum)} dia`;
       elMonth.textContent = m.name;
 
-      // Nome da(s) divindade(s) do dia, em maiúsculas — exibido ACIMA do numeral
       const elDiv = document.getElementById('devDivindade');
       const chaveDevParaNome = (dayNum === m.days) ? 'deipnon' : (DEVOCIONARIO[dayNum] ? dayNum : null);
       if (chaveDevParaNome && DEVOCIONARIO[chaveDevParaNome].divindades.length > 0) {
@@ -3329,7 +3348,6 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
         elDiv.style.display = 'none';
       }
 
-      // Fase da lua — apenas emoji e nome do ciclo, sem a data civil
       elMoon.textContent = `${di.moon.emoji} ${di.moon.name}`;
 
       const chaveDev = (dayNum === m.days) ? 'deipnon' : (DEVOCIONARIO[dayNum] ? dayNum : null);
@@ -3359,7 +3377,7 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
         Object.entries(substitutos).forEach(([div, ep]) => {
           out = out.split(`${div} [epíteto do mês]`).join(`${div} ${formatarEpiteto(ep)}`);
         });
-       out = out.replace(/\[DIVINDADE DE MAIOR KHARIS\]/g, '<strong>[NOME DA DIVINDADE DE SUA MAIOR DEVOÇÃO]</strong>');
+        out = out.replace(/\[DIVINDADE DE MAIOR KHARIS\]/g, '<strong>[NOME DA DIVINDADE DE SUA MAIOR DEVIAÇÃO]</strong>');
         out = out.replace(/\[epíteto do mês\]/gi, '');
         return out;
       }
@@ -3368,7 +3386,7 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
 
       html += `<div class="dev-section"><h3>Foco do Dia</h3><div class="dev-text"><p>${dev.foco}</p></div></div>`;
 
-               const temEpitetosFixos = DIAS_EPITETOS_FIXOS.includes(chaveDev);
+      const temEpitetosFixos = DIAS_EPITETOS_FIXOS.includes(chaveDev);
       if (!temEpitetosFixos && Object.keys(epitetos).length > 0) {
         html += `<div class="dev-section"><h3>Epítetos do Mês</h3><div class="dev-text">
           <p style="font-style:italic;color:var(--text-muted);font-size:0.85rem;">Para cultivar a kharis com os Deuses, sugerimos um epíteto diferente a cada mês. Toda a comunidade recebe o mesmo, e assim honramos juntos o mesmo aspecto divino. Hoje, o epíteto sugerido é:</p>
@@ -3376,7 +3394,6 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
         </div></div>`;
       }
 
-      // ===== Sugestões de Oferendas — abaixo dos Epítetos do Mês =====
       if (dev.libacao || dev.oferenda) {
         html += `<div class="dev-section"><h3>Sugestões de Oferendas</h3><div class="dev-text">
           <p><strong>Libações:</strong> ${dev.libacao || '—'}</p>
@@ -3390,7 +3407,6 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
         html += `<p><strong>I. Preparação.</strong> ${r.preparacao}</p>`;
         html += `<p><strong>II. Abertura — Saudação.</strong> ${aplicarEpitetos(r.abertura)}</p>`;
 
-        // III. Hino à Divindade — agora com o hino integrado
         html += `<p><strong>III. Hino à Divindade.</strong> Entoe o Canto a Héstia (Oikos Philoi) e, em seguida, o hino específico do dia.</p>`;
         if (dev.hinoTitulo) {
           html += `<p style="font-family:var(--font-serif);font-size:0.75rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--cor);margin-top:0.6rem;margin-bottom:0.4rem;">${dev.hinoTitulo}</p>`;
@@ -3424,7 +3440,6 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
     document.getElementById('devNextDay').addEventListener('click', () => { currentDayOffset++; renderDevocional(); });
     document.getElementById('devTodayBtn').addEventListener('click', () => { currentDayOffset = 0; renderDevocional(); });
 
-    /* ===== Barra "Ir para" ===== */
     function jumpToMonthDay(monthIdx, dayNum) {
       switchView('devocional', { monthIdx: monthIdx, dayNum: dayNum });
     }
@@ -3465,7 +3480,7 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
         if (dayNum >= 1 && dayNum <= MONTHS[mi].days) selDay.value = dayNum;
       }
 
-           btnGo.addEventListener('click', () => {
+      btnGo.addEventListener('click', () => {
         jumpToMonthDay(parseInt(selMonth.value, 10), parseInt(selDay.value, 10));
       });
 
@@ -3570,7 +3585,6 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
       if (idx >= 0) { calActiveMonth = idx; renderCalendario(); }
     });
 
-    /* ===== MODAL DO CALENDÁRIO ===== */
     function openCalModal(monthIdx, dayNum) {
       const m = MONTHS[monthIdx];
       const info = dayInfo(monthIdx, dayNum);
@@ -3586,7 +3600,7 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
       if (info.fest) html += `<div class="m-section"><div class="m-label">Festival</div><div class="m-fest">${info.fest}</div></div>`;
       if (info.fixed) html += `<div class="m-section"><div class="m-label">Dedicação fixa</div><div class="m-body">${info.fixed}</div></div>`;
 
-           const chaveDev = (dayNum === m.days) ? 'deipnon' : (DEVOCIONARIO[dayNum] ? dayNum : null);
+      const chaveDev = (dayNum === m.days) ? 'deipnon' : (DEVOCIONARIO[dayNum] ? dayNum : null);
       const temEpitetosFixosModal = chaveDev && DIAS_EPITETOS_FIXOS.includes(chaveDev);
       if (chaveDev && DEVOCIONARIO[chaveDev].divindades.length > 0 && !temEpitetosFixosModal) {
         const dt = addDays(m.start[0], m.start[1], m.start[2], dayNum - 1);
@@ -3625,7 +3639,7 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
       const listEl = document.getElementById('circList');
       const viewerEl = document.getElementById('circViewer');
       const searchInput = document.getElementById('circSearchInput');
-     
+
       if (!CIRCULARES || CIRCULARES.length === 0) {
         listEl.innerHTML = `<div class="circ-empty">Nenhuma circular publicada ainda.</div>`;
         viewerEl.style.display = 'none';
@@ -3645,7 +3659,7 @@ Perséfone, filha do grande Zeus, vem, venturosa Deusa unigênita, e aceita, gra
         });
       }
 
-const ordenadas = [...filtradas].sort((a, b) => {
+      const ordenadas = [...filtradas].sort((a, b) => {
         const numA = parseInt((a.id.match(/(\d+)$/) || [0, 0])[1], 10);
         const numB = parseInt((b.id.match(/(\d+)$/) || [0, 0])[1], 10);
         return numB - numA;
@@ -3716,11 +3730,12 @@ const ordenadas = [...filtradas].sort((a, b) => {
       document.getElementById('circClearBtn').classList.remove('visible');
       renderCirculares();
     });
-           /* ==================================================================
+
+    /* ==================================================================
        13-bis) GLOSSÁRIO DE EPÍTETOS — agrupado por divindade (unificada)
        ================================================================== */
     let GLOSSARIO_CACHE = null;
-    let glossDeusSelecionado = null; // null = "Todas"
+    let glossDeusSelecionado = null;
 
     function _norm(s) {
       return (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
@@ -3781,12 +3796,11 @@ const ordenadas = [...filtradas].sort((a, b) => {
       return texto.replace(new RegExp(`(${safe})`, 'gi'), '<mark>$1</mark>');
     }
 
-    /* ---------- Barra "Ir para" do Glossário ---------- */
     function initGlossJump() {
       const sel = document.getElementById('glossJumpDeus');
       const btnGo = document.getElementById('glossJumpGo');
       if (!sel || !btnGo) return;
-      // Popula o select com as divindades (ordem alfabética)
+
       function popularSelect() {
         const todos = buildGlossario();
         const valorAtual = glossDeusSelecionado || '';
@@ -3799,10 +3813,7 @@ const ordenadas = [...filtradas].sort((a, b) => {
 
       btnGo.addEventListener('click', () => {
         const escolha = sel.value;
-        if (!escolha) {
-          // Se nada foi escolhido, não faz nada
-          return;
-        }
+        if (!escolha) return;
         glossDeusSelecionado = escolha;
         renderGlossario();
         const alvo = document.querySelector(`.gloss-deus-block[data-deus="${CSS.escape(escolha)}"]`);
@@ -3812,10 +3823,7 @@ const ordenadas = [...filtradas].sort((a, b) => {
         }
       });
 
-      // Se o usuário trocar o select, atualiza a variável (sem aplicar ainda)
-      sel.addEventListener('change', () => {
-        // Nada — só aplica ao clicar em "Ir"
-      });
+      sel.addEventListener('change', () => {});
     }
 
     function renderGlossario() {
@@ -3829,7 +3837,6 @@ const ordenadas = [...filtradas].sort((a, b) => {
 
       const todos = buildGlossario();
 
-      // Atualiza o valor do select com o deus selecionado (caso venha por hash/outro caminho)
       const sel = document.getElementById('glossJumpDeus');
       if (sel) sel.value = glossDeusSelecionado || '';
 
@@ -3851,7 +3858,6 @@ const ordenadas = [...filtradas].sort((a, b) => {
         }).filter(Boolean);
       }
 
-      // Estatísticas
       if (stats) {
         if (!q && glossDeusSelecionado === null) {
           const total = todos.reduce((acc, d) => acc + d.epitetos.length, 0);
@@ -3895,7 +3901,6 @@ const ordenadas = [...filtradas].sort((a, b) => {
       }).join('');
     }
 
-    // Listeners do glossário
     document.getElementById('glossSearchInput').addEventListener('input', (e) => {
       const val = e.target.value;
       document.getElementById('glossClearBtn').classList.toggle('visible', val.length > 0);
@@ -4016,7 +4021,7 @@ const ordenadas = [...filtradas].sort((a, b) => {
       initDevJump();
       renderCalendario();
       renderCirculares();
-      initGlossJump(); 
+      initGlossJump();
       renderGlossario();
 
       if (location.hash) {
@@ -4032,13 +4037,12 @@ const ordenadas = [...filtradas].sort((a, b) => {
     }
     init();
 
-        // ===== Esconde a splash screen após o app estar renderizado =====
     (function esconderSplash() {
       const splash = document.getElementById('splash-screen');
       if (!splash) return;
 
-      const TEMPO_MINIMO_SPLASH = 3000;   // tempo total visível (ms)
-      const TEMPO_FADE = 700;             // fade-out (ms)
+      const TEMPO_MINIMO_SPLASH = 3000;
+      const TEMPO_FADE = 700;
 
       if (!window._splashStart) window._splashStart = performance.now();
 
